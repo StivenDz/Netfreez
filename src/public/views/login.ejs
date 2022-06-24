@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/53d40d2367.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="shortcut icon" href="../../images/neticon.png" type="image/x-icon">
+
+    <title>Login | NetFree The Best Platform To Watch Movies And Series</title>
+</head>
+<body>
+
+    <form method="post" action="/login" id="form-login">
+        <div class="inputs">
+            <h1>
+                Welcome back!
+            </h1>
+            <p>Email</p>
+            <input type="email" id="email">
+            <p>Password</p>
+            <input type="password" id="password">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="button-social">
+            <button type="submit">Log In</button>
+            <p>--------OR--------</p>
+            <h3>Join saasguru With Your Favorite social media account:</h3>
+            <section>
+                <% for( let i = 1; i <= 4; i++ ) { %>
+                    <img src="../images/social<%=i%>.png" alt="">
+                <% } %>
+            </section>
+        </div>
+    </form>
+
+</body>
+</html>

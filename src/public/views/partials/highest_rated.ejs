@@ -1,0 +1,51 @@
+<div class="add other">
+    <h2 class="pop">Top Rated</h2>
+</div>
+<div class="container other">
+    <div class="movebutt left-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="movebutt right-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="container-movies">
+        <% for(var i = 0; i< highest_rated.length; i++){ %>
+            <% if(highest_rated[i]['poster_path']){ %>
+                <% if (highest_rated[i]['vote_average']>8) { %>
+                    <div class="movie">
+                        <img src="<%=`https://image.tmdb.org/t/p/w500${highest_rated[i]['poster_path']}`%>" class="card-img-top">
+                        <div class="overlay">
+                            <div class="content">
+                                <p class="move-name"><%=highest_rated[i]['original_title']%></p>
+                                <p class="text"><%=highest_rated[i]['release_date']%></p>
+                                <!-- <p class="text">Action,Sci-fi <span id="duration">182min</span></p> -->
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span><%=highest_rated[i]['vote_average']%></span>
+                            </div>
+                            <div class="cast">
+                                <p><%=highest_rated[i]['overview']%></p>
+                                <!-- <p>Robert Downey Jr,
+                                Chris Evans,Mark Ruffalo,Chris Hemsworth,Scarlett Johansson,Chadwick Boseman</p> -->
+                            </div>
+                            <a  class="button" id="<%= highest_rated[i]['id'] %>">Watch Trailer<i class="fas fa-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+<div id="trailer">
+    <button id="close-modal">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div id="player">
+
+    </div>
+</div>

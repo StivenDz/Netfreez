@@ -1,0 +1,41 @@
+<div class="add other">
+    <h2 class="pop">In Theaters <%= fechaCompleta %></h2>
+</div>
+<div class="container other">
+    <div class="movebutt left-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="movebutt right-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="container-movies">
+        <% for(var i = 0; i< cartelera.length; i++){ %>
+            <% if(cartelera[i]['poster_path']){ %>
+                <div class="movie">
+
+                    <img src="<%=`https://image.tmdb.org/t/p/w500${cartelera[i]['poster_path']}`%>" class="card-img-top">
+                    <div class="overlay">
+                        <div class="content">
+                            <p class="move-name"><%=cartelera[i]['original_title']%></p>
+                            <p class="text"><%=cartelera[i]['release_date']%></p>
+                            
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span><%=cartelera[i]['vote_average']%></span>
+                        </div>
+                        <div class="cast">
+                            <p><%=cartelera[i]['overview']%></p>
+                            
+                        </div>
+                        <button class="button" id="<%= cartelera[i]['id'] %>">Watch Trailer<i class="fas fa-play"></i></button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>

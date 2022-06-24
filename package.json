@@ -1,0 +1,29 @@
+{
+  "name": "movies-app",
+  "version": "1.0.0",
+  "description": "Netfree App de Movies - Proyeecto final CoderHouse (JavaScript)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "javascript",
+    "css",
+    "html",
+    "API"
+  ],
+  "author": "Stiven Diaz",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
+  }
+}

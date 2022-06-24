@@ -1,0 +1,334 @@
+
+/* PORTADA */
+@media screen and (max-width:1037px) {
+    .port .content{
+        padding-left: 20px;
+    }
+}
+
+/* HEADER */
+@media screen and (max-width:930px) {
+
+    /* HEADER */
+    header .links-title a{
+        display: none;
+    }
+    .fa-circle-xmark{
+        color: red;
+    }
+
+    .search-box{
+        right: 10px;
+    }
+
+    header .user-t{
+        display: none;
+    }
+
+    header .nav-responsive{
+        color: #fff;
+        margin-right: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    header .nav-responsive > i{
+        transform: rotate(180deg);
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .aside-links{
+        position: fixed;
+        top: 80px;
+        width: 220px;
+        z-index: 1600;
+        right: 0;
+        background: rgba(0, 0, 0, 0.884);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        /* min-height: calc(100vh - 80px); */
+        height: calc(100vh - 80px);
+        /* min-height: calc(max-content + 20px); */
+        opacity:0;
+        transition:opacity 1s;
+        padding-bottom: 10px;
+        scroll-behavior: auto;
+        scroll-snap-type: y mandatory;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .opacity-pointer-events{
+        pointer-events: all;
+        opacity:1;
+    }
+
+    .aside-links .links{
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid rgba(225,225,225,.25) ;
+    }
+    .aside-links .links a{
+        color: #fff;
+        text-decoration: none;
+        padding: 10px;
+    }
+    .aside-links .links a:hover{
+        text-decoration: underline;
+    }
+    .aside-links .pro-set-clos .profiles,.aside-links .pro-set-clos .cuenta{
+        width: 100%;
+    }
+    .aside-links .pro-set-clos .profiles > div{
+        margin-bottom: 15px;
+    }
+    .aside-links .pro-set-clos .profiles > div .fa-user{
+        background: #22ffc0;
+        border-radius: 5px;
+        color: #000;
+    }
+    .aside-links .pro-set-clos .profiles > div i{
+        padding: 7px;
+    }
+
+    .aside-links .pro-set-clos{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .aside-links .pro-set-clos > div > a{
+        background: rgb(255, 0, 0);
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        display: block;
+        text-align: center;
+        padding: 5px;
+        width: max-content;
+        border-radius: 7px;
+        
+    }
+    .aside-links .pro-set-clos > div > a:hover{
+        background: rgba(255, 0, 0, 0);
+        outline: 2px solid rgb(255, 0, 0);
+    }
+    .aside-links .pro-set-clos > .content-btn-leave{
+        height: 70px;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+    }
+    
+    .aside-links .pro-set-clos > div{
+        color: #b3b3b3;
+        padding: 7px 0 2px 7px;
+        margin-bottom: 7px;
+    }
+    .aside-links .pro-set-clos > div:nth-child(2){
+       border-top: 1px solid rgba(225,225,225,.25);
+       border-bottom: 1px solid rgba(225,225,225,.25);
+    }
+    .aside-links .pro-set-clos  div div{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 7%;
+        margin-top: 7px;
+        margin-bottom: 12px;
+    }
+    .aside-links .pro-set-clos  div div a{
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        font-size: 12px;
+    }
+    .aside-links .pro-set-clos  div div a:hover{
+        text-decoration: underline;
+    }
+    .aside-links .pro-set-clos  div div i{
+        font-size: 20px;
+        padding-left: 7px;
+    }
+}
+
+/*  PORTADA */
+@media screen and (max-width:923px) {
+    .port .content h2{
+        font-size: 40px;
+    }
+    .port .content .overview {
+        width: 75%;
+    }
+}
+@media screen and (max-width:796px) {
+    .port .content h2{
+        font-size: 30px;
+    }
+    .port .content .overview {
+        font-size: 14px;
+        width: 75%;
+    }
+}
+@media screen and (max-width:700px) {
+    .port .content {
+        width: 80%;
+        height: 100%;
+        padding-left: 10px;
+        position: absolute;
+    }
+}
+
+/*  PORTADA | Left Right Buttons | Container Movies | Movies Wanted  */
+
+@media screen and (max-width:680px) {
+
+    /* PORTADA  */
+    .port .content h2{
+        font-size: 27px;
+    }
+    .port .content .overview {
+        font-size: 13px;
+        width: 70%;
+    }
+    .port .content {
+        width: 100%;
+    }
+
+
+    /*  Left Right Buttons  */
+    .container .movebutt {
+        width: 40px;
+    }
+    .container .movebutt .arrow {
+        width: 20px;
+        height: 20px;
+        border-right: 5.666666666666667px solid #22ffc0;
+        border-top: 5.666666666666667px solid #22ffc0;
+        border-radius: 3px;
+    }
+
+    /* Container Movies */
+    .container-movies {
+        padding-left: 25px;
+    }
+    .container-movies > .movie {
+        min-width: 200px;
+    }
+    .container-movies div .overlay .content{
+        top: 0;
+        height: 100%;
+    }
+    .container-movies div .overlay .move-name {
+        font-size: 13px;
+    }
+
+    .container-movies div .overlay .cast {
+        font-size: 11px;
+        max-height: 50px;
+        overflow-y: scroll;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width:679px) {
+    /*  Movies Wanted  */
+    #wanted_movie_container > .movie {
+        max-height: 393px;
+        max-width: 270px;
+        justify-self: center;
+    }
+}
+
+/* PORTADA */
+@media screen and (max-width:500px) {
+    .port .content .overview {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:459px) {
+    /*  Movies Wanted  */
+    #wanted_movie_container > .movie {
+        position: relative;
+        width: 100%;
+        max-height: 400px;
+        min-height: 100%;
+        max-width: 300px;
+        justify-self: center;
+    }
+}
+
+/*  PORTADA & HEADER  */
+@media screen and (max-width:450px) {
+    
+    /*  Movies Wanted  */
+    #wanted_movie_container > .movie {
+        position: relative;
+        width: 100%;
+        max-height: 400px;
+        min-height: 100%;
+        max-width: 300px;
+        justify-self: center;
+    }
+
+
+    header .links-title div h1 {
+        display: none;
+    }
+    .search-box{
+        position: relative;
+        margin-right: 0;
+        right: 0;
+    }
+
+    header{
+        background: #111;
+    }
+
+    .port{
+        min-height: 390px;
+    }
+
+    .port .content h2 {
+        font-size: 30px;
+        
+    }
+    .port .content .overview {
+        font-size: 13px;
+    }
+}
+
+/*  PORTADA  */
+@media screen and (max-width:385px) {
+    .port .content h2 {
+        font-size: 25px;
+    }
+    .port .content .overview {
+        font-size: 11px;
+    }
+}
+
+/*  SEARCH BUTTON  */
+@media screen and (max-width:330px) {
+    .search-box:hover>.search-input, .search-input:focus {
+        width: 120px;
+        margin: 0;
+    }
+}
+
+/*  PORTADA  */
+@media screen and (max-width:323px) {
+    .port .content h2 {
+        font-size: 22px;
+    }
+}
+@media screen and (max-width:310px) {
+    .port .content .buttons-content button {
+        padding: 4px 9px;
+        font-size: 12px;
+    }
+}

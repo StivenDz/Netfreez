@@ -1,0 +1,41 @@
+<div class="add other">
+    <h2 class="pop">Most Popular</h2>
+</div>
+<div class="container other">
+    <div class="movebutt left-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="movebutt right-side">
+        <div class="arrow"></div>
+    </div>
+    <div class="container-movies">
+        <% for(var i = 0; i< popular_movies.length; i++){ %>
+            <% if(popular_movies[i]['poster_path']){ %>
+            <div class="movie">
+                <img src="<%=`https://image.tmdb.org/t/p/w500${popular_movies[i]['poster_path']}`%>" class="card-img-top">
+                <div class="overlay">
+                    <div class="content">
+                        <p class="move-name"><%=popular_movies[i]['original_title']%></p>
+                        <p class="text"><%=popular_movies[i]['release_date']%></p>
+                        <!-- <p class="text">Action,Sci-fi <span id="duration">182min</span></p> -->
+                      <div class="rating">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="far fa-star"></i>
+                          <span><%=popular_movies[i]['vote_average']%></span>
+                      </div>
+                      <div class="cast">
+                        <p><%=popular_movies[i]['overview']%></p>
+                        <!-- <p>Robert Downey Jr,
+                          Chris Evans,Mark Ruffalo,Chris Hemsworth,Scarlett Johansson,Chadwick Boseman</p> -->
+                      </div>
+                      <button class="button" id="<%= popular_movies[i]['id'] %>">Watch Trailer<i class="fas fa-play"></i></button>
+                    </div>
+                </div>
+            </div>
+            <% }%>
+        <% } %>
+    </div>
+</div>
