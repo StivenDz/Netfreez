@@ -8,12 +8,20 @@
     <script src="https://kit.fontawesome.com/53d40d2367.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="../styles/login.css">
-    <link rel="shortcut icon" href="../../images/neticon.png" type="image/x-icon">
 
     <title>Login | NetFree The Best Platform To Watch Movies And Series</title>
 </head>
 <body>
-
+    <div class="back-gradient"></div>
+    <img class="catalogo" src="../images/catalogo.jpg" alt="">
+    <header class="header">
+        <div class="links-title">
+            <div id="logo">
+                    <img src="../../images/neticon.png" alt="">
+                    <h1>etFree</h1>
+            </div>
+        </div>
+    </header>
     <form method="post" action="/login" id="form-login">
         <div class="inputs">
             <h1>
@@ -22,21 +30,26 @@
             <p>Email</p>
             <input type="email" id="email">
             <p>Password</p>
-            <input type="password" id="password">
+            <div>
+                <input type="password" id="password">
+                <i class="fa-solid fa-eye-slash" id="eye"></i>
+            </div>
             <a href="#">Forgot Password?</a>
         </div>
 
         <div class="button-social">
             <button type="submit">Log In</button>
-            <p>--------OR--------</p>
+            <p>-------- OR --------</p>
             <h3>Join saasguru With Your Favorite social media account:</h3>
             <section>
                 <% for( let i = 1; i <= 4; i++ ) { %>
-                    <img src="../images/social<%=i%>.png" alt="">
+                    <a href="#">
+                        <img src="../images/social<%=i%>.png" alt="">
+                    </a>
                 <% } %>
             </section>
         </div>
     </form>
-
+    <script src="../js/login.js"></script>
 </body>
 </html>

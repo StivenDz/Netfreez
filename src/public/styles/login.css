@@ -13,54 +13,104 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-*::selection{
+*::selection {
     background: rgba(0, 0, 0, 0.253);
     color: white;
+}
+
+a,
+button {
+    cursor: pointer;
 }
 
 *::-webkit-scrollbar {
     display: none;
 }
 
-body{
+body {
     background: rgb(15, 15, 15);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    /* background-image: url(../images/catalogo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
 }
 
-form{
-    width: 380px;
+.catalogo{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    object-fit: cover;
+}
+
+.back-gradient{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 300;
+    background: linear-gradient(to right,rgb(0, 0, 0),rgba(0, 0, 0, 0.137));
+}
+
+form {
+    width: 370px;
     height: 550px;
-    background: #fff;
+    background: rgb(255, 255, 255);
     border-radius: 20px;
-    padding: 20px;
+    padding: 25px;
+    position: relative;
+    z-index: 400;
+    backdrop-filter: blur(3px);
 }
 
-.inputs{
-    height: 50%;
+.inputs {
+    height: 52%;
     width: 100%;
     /* background: rgb(156, 156, 156); */
 }
 
-.inputs h1{
+.inputs h1 {
     margin-bottom: 20px;
 }
 
-.inputs input{
+.inputs p {
+    font-weight: 500;
+}
+
+.inputs input {
     width: 100%;
     height: 50px;
     border-radius: 10px;
-    border: 1px solid #808080;
+    border: 1px solid #808080a8;
     outline: none;
+    padding-left: 7px;
+    padding-top: 7px;
 }
 
-.inputs input[type="email"]{
+.inputs input[type="email"] {
     margin-bottom: 10px;
 }
 
-.inputs a{
+.inputs div{
+    position: relative;
+}
+
+.inputs div #eye{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
+    color: #808080;
+    cursor: pointer;
+}
+
+.inputs div .fa-eye{
+    right: 13px !important;
+}
+
+.inputs a {
     text-align: right;
     width: 100%;
     display: block;
@@ -70,14 +120,18 @@ form{
     font-weight: 600;
 }
 
-.button-social{
-    height: 50%;
-    width: 100%;
-    padding-top: 20px;
-    /* background:rgb(156, 156, 156); */
+.inputs a:hover {
+    text-decoration: underline;
+    text-emphasis-position: under;
 }
 
-.button-social button{
+.button-social {
+    height: 48%;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.button-social button {
     width: 100%;
     height: 50px;
     border-radius: 10px;
@@ -89,44 +143,90 @@ form{
     font-size: 18px;
 }
 
-.button-social button:hover{
+.button-social button:hover {
     background: transparent;
     outline: 2px solid #000;
     color: #000;
 }
 
-.button-social p{
+.button-social p {
     text-align: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #808080;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    color: #8080806e;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-.button-social h3{
-    font-size: 16px;
+.button-social h3 {
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.button-social section{
+.button-social section {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 100px;
 }
 
-.button-social section img{
+.button-social section img {
     object-fit: cover;
     height: 50px;
     width: 50px;
-    border: 1px solid #808080;
+    border: 1px solid #80808062;
     padding: 10px;
     border-radius: 7px;
 }
 
+/* HEADER */
+header {
+    height: 65px;
+    width: 100%;
+    background: #23232300;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    z-index: 1200;
+}
+
+header .links-title{
+    cursor: pointer;
+}
+
+header .links-title div {
+    display: flex;
+    align-items: flex-end;
+    justify-content: stretch;
+}
+
+header .links-title div h1 {
+    color: #22ffc0;
+    font-weight: 300;
+    margin-right: 5px;
+    margin-left: -7px;
+}
+
+header .links-title div img {
+    width: 55px;
+    height: 60px;
+    object-fit: contain;
+}
+
 @media screen and (max-width:425px) {
-    form{
+    form {
         width: 100%;
         height: 100%;
         border-radius: 0;
+        min-height: 520px;
     }
+
 }
 
+@media screen and (max-width:700px){
+    .header{
+        display: none;
+    }
+}
