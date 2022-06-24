@@ -1,8 +1,5 @@
 const { Router } = require('express');
 const axios = require('axios');
-
-
-module.exports = (io) => {
 /*
     Eventos escuchados:
     - movie
@@ -14,6 +11,8 @@ module.exports = (io) => {
     - trailer
     - filmDoesntFound X3
 */
+
+module.exports = (io) => {
 
     io.on('connection', async socket => {
         console.log('Connected');
@@ -108,6 +107,24 @@ module.exports = (io) => {
                     console.log('error');
                 });
 
+        })
+
+        let users = [
+            {
+                email:'stivendz@gmail.com',
+                password:'123456789'
+            }
+        ];
+
+        //login
+        socket.on('auth',(data,cb)=>{
+            for (let i = 0; i < users.length; i++) {
+                if(users[i]['email'] === data.email && users[i]['password'] === data.password){
+                    cb(true);
+                }else{
+                    cb(false);
+                }
+            }
         })
     })
 

@@ -3,6 +3,15 @@ const axios = require('axios');
 const { render } = require('ejs');
 const router = Router();
 
+
+router.get('/',(req,res)=>{
+    res.render('index');
+})
+
+router.get('/login',(req,res)=>{
+    res.render('login');
+})
+
 router.get('/home', async (req, res) => {
     const sortJSON = (data, key, orden) => {
         return data.sort( (a, b) => {
@@ -76,19 +85,11 @@ router.get('/home', async (req, res) => {
 
     fechaCompleta = `${year}-05-${day}`;
 
-    res.render('index',{popular_movies, highest_rated,cartelera,fechaCompleta,portada});
-})
-
-router.get('/login',(req,res)=>{
-    res.render('login');
+    res.render('home',{popular_movies, highest_rated,cartelera,fechaCompleta,portada});
 })
 
 router.get('*',(req,res)=>{
     res.send('Error');
-})
-
-router.post('/login',(req,res)=>{
-
 })
 
 // router.get('/watch-trailer/:id/',(req,res)=>{

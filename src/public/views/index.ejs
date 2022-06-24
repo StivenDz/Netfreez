@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include("partials/head") -%>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/53d40d2367.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../styles/index.css">
+
+    <title>NetFree | The Best Platform To Watch Movies And Series</title>
 </head>
 <body>
+    <div class="back-gradient"></div>
+    <img class="catalogo" src="../images/catalogo.jpg" alt="">
+    <header class="header">
+        <div class="links-title">
+            <div id="logo">
+                    <img src="../../images/neticon.png" alt="">
+                    <h1>etFree</h1>
+            </div>
+        </div>
+        <div class="button">
+            <a href="/login">Log In</a>
+        </div>
+    </header>
+    <main>
+        <h1>
+            Unlimited movies, TV <br>
+            shows, and more.
+        </h1>
+        <h2>
+            Watch anywhere. Cancel anytime
+        </h2>
+        <h3>
+           Ready to watch? Enter your email to create or restart your membership
+        </h3>
 
-    <%- include("partials/navigation") -%>
-    <%- include("partials/portada") -%>
-    <%- include("partials/searchMovie") -%>
-
-    <!-- en cartelera -->
-    <%- include("partials/cartelera") -%>
-
-    <!-- las mas populares -->
-    <%- include("partials/populares") -%>
-    
-    <!-- mas vistas en el país -->
-    <%- include("partials/highest_rated") -%>
-
-    <%- include("partials/script") -%>
-    <script src="../js/code.js"></script>
+        <form id="form-register" class="button">
+            <input type="email" name="" id="" placeholder="Email Adress">
+            <button type="submit">Get Started</button>
+        </form>
+    </main>
+    <%- include ('partials/script')  -%>
     <script src="../js/index.js"></script>
 </body>
 </html>

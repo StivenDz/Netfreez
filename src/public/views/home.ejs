@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head") -%>
+    <link rel="stylesheet" href="../../styles/home.css">
+    <link rel="stylesheet" href="../../styles/responsive.css">
+
+    <title>Home | NetFree | The Best Platform To Watch Movies And Series</title>
+</head>
+<body>
+
+    <%- include("partials/navigation") -%>
+    <%- include("partials/portada") -%>
+    <%- include("partials/searchMovie") -%>
+
+    <!-- en cartelera -->
+    <%- include("partials/cartelera") -%>
+
+    <!-- las mas populares -->
+    <%- include("partials/populares") -%>
+    
+    <!-- mas vistas en el país -->
+    <%- include("partials/highest_rated") -%>
+
+    <%- include("partials/script") -%>
+    <script src="../js/code.js"></script>
+    <script src="../js/home.js"></script>
+</body>
+</html>

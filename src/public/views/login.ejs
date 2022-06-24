@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="https://kit.fontawesome.com/53d40d2367.js" crossorigin="anonymous"></script>
+    <%- include ('partials/head') -%> 
 
     <link rel="stylesheet" href="../styles/login.css">
 
@@ -21,6 +17,9 @@
                     <h1>etFree</h1>
             </div>
         </div>
+        <div class="button">
+            <a href="/">Sign Up</a>
+        </div>
     </header>
     <form method="post" action="/login" id="form-login">
         <div class="inputs">
@@ -28,17 +27,18 @@
                 Welcome back!
             </h1>
             <p>Email</p>
-            <input type="email" id="email">
+            <input type="email" placeholder="stivendz@gmail.com" autocomplete="off" name="Email" id="email">
             <p>Password</p>
             <div>
-                <input type="password" id="password">
+                <input type="password" placeholder="123456789" autocomplete="off" name="Password"id="password">
                 <i class="fa-solid fa-eye-slash" id="eye"></i>
             </div>
             <a href="#">Forgot Password?</a>
         </div>
 
         <div class="button-social">
-            <button type="submit">Log In</button>
+            <button id="submit-button" type="submit">Log In</button>
+            <a class="res-sign" href="/">You don't have an account?</a>
             <p>-------- OR --------</p>
             <h3>Join saasguru With Your Favorite social media account:</h3>
             <section>
@@ -50,6 +50,7 @@
             </section>
         </div>
     </form>
+    <%- include ('partials/script')  -%> 
     <script src="../js/login.js"></script>
 </body>
 </html>

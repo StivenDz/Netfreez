@@ -79,14 +79,35 @@ form {
     font-weight: 500;
 }
 
+.inputs .invalid{
+    border: 1px solid #ff0000a8;
+    outline: 1px solid #ff0000a8;
+    animation: invalid .2s ease 2 alternate;
+}
+
+@keyframes invalid {
+    0%{
+        transform: translateX(10px);
+    }50%{
+        transform: translateX(-10px);
+    }100%{
+        transform: translateX(0);
+    }
+}
+
 .inputs input {
     width: 100%;
     height: 50px;
     border-radius: 10px;
     border: 1px solid #808080a8;
-    outline: none;
-    padding-left: 7px;
-    padding-top: 7px;
+    outline: 1px solid #ff000000;
+    padding: 16px 19px 0;
+    position: relative;
+    transition: border .5s, outline 1s;
+}
+
+.inputs input:focus::placeholder{
+    color: #000;
 }
 
 .inputs input[type="email"] {
@@ -113,11 +134,15 @@ form {
 .inputs a {
     text-align: right;
     width: 100%;
-    display: block;
+    display:block;
     margin-top: 10px;
     text-decoration: none;
     color: #000;
     font-weight: 600;
+}
+
+.res-sign{
+    display: none !important;
 }
 
 .inputs a:hover {
@@ -215,12 +240,61 @@ header .links-title div img {
     object-fit: contain;
 }
 
+header .button{
+    width: max-content;
+    display: flex;
+    align-items: flex-end;
+    padding-right: 35px;
+    padding-top: 15px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+header .button a{
+    color: rgb(0, 0, 0);
+    background: #22ffc0;
+    padding: 7px 18px;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+header .button a:hover{
+    background: #22ffc063 ;
+    outline: 2px solid #22ffc0;
+    color: rgb(255, 255, 255);
+    backdrop-filter: blur(4px);
+}
+
 @media screen and (max-width:425px) {
     form {
         width: 100%;
         height: 100%;
         border-radius: 0;
         min-height: 520px;
+    }
+    .res-sign{
+        display: block !important;
+        text-align: center;
+        color: #000;
+        text-decoration: none;
+        margin-top: 20px;
+    }
+
+    .button-social{
+        padding-top: 0;
+    }
+
+    .inputs{
+        height: 48%;
+    }
+
+    .button-social{
+        height: 52%;
+    }
+
+    .inputs a{
+        margin-top: 25px;
     }
 
 }
