@@ -1,7 +1,7 @@
 {
   "name": "movies-app",
   "version": "1.0.0",
-  "description": "Netfree App de Movies - Proyeecto final CoderHouse (JavaScript)",
+  "description": "Netfree App de Movies - Proyecto final CoderHouse (JavaScript)",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
