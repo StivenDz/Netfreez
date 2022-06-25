@@ -8,6 +8,8 @@ $(async () => {
     const inputPassword = document.getElementById('password');
     const eye = document.getElementById('eye');
 
+    // inputEmail.value = 'stivendiazh@gmail.com';
+
     const logo = document.getElementById('logo');
 
     logo.addEventListener('click', () => {

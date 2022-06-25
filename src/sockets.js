@@ -111,7 +111,7 @@ module.exports = (io) => {
 
         let users = [
             {
-                email:'stivendz@gmail.com',
+                email:'stivendiazh@gmail.com',
                 password:'123456789'
             }
         ];
