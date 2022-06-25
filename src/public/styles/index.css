@@ -29,7 +29,7 @@ button {
 
 body {
     background: rgb(15, 15, 15);
-    height: 100vh;
+    height: 122vh;
     /* background-image: url(../images/catalogo.jpg);
     background-size: cover;
     background-position: center;
@@ -39,13 +39,13 @@ body {
 .catalogo{
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     object-fit: cover;
 }
 
 .back-gradient{
     width: 100vw;
-    height: 100vh;
+    height: 122vh;
     position: absolute;
     z-index: 300;
     background: linear-gradient(to right,rgb(0, 0, 0),rgba(0, 0, 0, 0.137));
