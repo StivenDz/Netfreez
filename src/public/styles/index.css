@@ -261,3 +261,11 @@ main h3{
         height: 40px;
     }
 }
+
+@media screen and (max-width:300px) {
+    header .button{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0;
+    }
+}

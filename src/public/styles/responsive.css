@@ -320,15 +320,14 @@
     }
 }
 
-/*  PORTADA  */
 @media screen and (max-width:323px) {
     .port .content h2 {
         font-size: 22px;
     }
 }
-@media screen and (max-width:310px) {
+@media screen and (max-width:317px) {
     .port .content .buttons-content button {
-        padding: 4px 9px;
-        font-size: 12px;
+        padding: 10px 15px;
+        font-size: 13px;
     }
 }

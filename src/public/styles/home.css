@@ -340,8 +340,15 @@ header .user-t > i{
     border-radius: 4px;
     background: #fff;
     color: #000;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 500 !important;
     cursor: pointer;
+    height: max-content !important;
+}
+
+.port .content .buttons-content button > i{
+    margin-right: 5px;
+    margin-left: 0;
 }
 
 .port .content .buttons-content button:hover{
