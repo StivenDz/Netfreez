@@ -8,7 +8,8 @@ $(async () => {
     const inputPassword = document.getElementById('password');
     const eye = document.getElementById('eye');
 
-    // inputEmail.value = 'stivendiazh@gmail.com';
+    inputEmail.value = 'stivendiazh@gmail.com';
+    inputPassword.value = '123456789';
 
     const logo = document.getElementById('logo');
 
