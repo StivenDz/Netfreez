@@ -20,7 +20,7 @@ app.set('port', process.env.PORT || 7999);
 const PORT = app.get('port');
 
 // Dev tools
-app.use(morgan(function (tokens, req, res) {
+app.use(morgan((tokens, req, res) => {
     return [
       tokens.method(req, res),
       tokens.url(req, res),

@@ -14,7 +14,15 @@
                 <div class="movie">
 
                     <img src="<%=`https://image.tmdb.org/t/p/w500${cartelera[i]['poster_path']}`%>" class="card-img-top">
+
                     <div class="overlay">
+
+                        <!-- <i class="fa-solid fa-bookmark favorite"></i> -->
+
+                        <i class="fa-regular fa-bookmark favorite"
+                        id="mov<%= cartelera[i]['id']%>">
+                        </i>
+
                         <div class="content">
                             <p class="move-name"><%=cartelera[i]['original_title']%></p>
                             <p class="text"><%=cartelera[i]['release_date']%></p>

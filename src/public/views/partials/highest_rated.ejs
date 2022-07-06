@@ -15,6 +15,9 @@
                     <div class="movie">
                         <img src="<%=`https://image.tmdb.org/t/p/w500${highest_rated[i]['poster_path']}`%>" class="card-img-top">
                         <div class="overlay">
+                            <i class="fa-regular fa-bookmark favorite"
+                                id="<%= highest_rated[i]['id']%>">
+                            </i>
                             <div class="content">
                                 <p class="move-name"><%=highest_rated[i]['original_title']%></p>
                                 <p class="text"><%=highest_rated[i]['release_date']%></p>
@@ -41,11 +44,4 @@
         <% } %>
     </div>
 </div>
-<div id="trailer">
-    <button id="close-modal">
-        <i class="fa-solid fa-xmark"></i>
-    </button>
-    <div id="player">
-
-    </div>
-</div>
+<%- include("trailer") -%>

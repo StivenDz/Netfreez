@@ -88,6 +88,10 @@ router.get('/home', async (req, res) => {
     res.render('home',{popular_movies, highest_rated,cartelera,fechaCompleta,portada});
 })
 
+router.get('/home/my-list',async (req,res)=>{
+    res.render('my-list');
+})
+
 router.get('*',(req,res)=>{
     res.send('Error');
 })

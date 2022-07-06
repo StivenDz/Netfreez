@@ -446,7 +446,7 @@ header .user-t > i{
 
 .container-movies > .movie {
     position: relative;
-    min-height: 250px;
+    min-height: 250px !important;
     max-height: 412px;
     min-width: 270px;
     border-radius: 15px;
@@ -501,6 +501,16 @@ header .user-t > i{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+.container-movies div .overlay .favorite{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    /* pointer-events: all;
+    z-index: 1200; */
 }
 
 .container-movies div .overlay .move-name {
@@ -574,7 +584,7 @@ header .user-t > i{
     display: none;
     min-height: 100vh;
     max-height: 100%;
-    width: 100%;
+    width: 100vw;
     position: fixed;
     top: 65px;
     z-index: 1100;
@@ -595,14 +605,26 @@ header .user-t > i{
     transition: opacity 2s;
 }
 
+.align-center{
+    align-items: flex-start;
+    padding: 50px 20px !important;
+}
+
+.rounded-15px{
+    border-radius: 15px !important;
+}
+
+.grid-column-width{
+    grid-template-columns: repeat(auto-fill, minmax(245px , 1fr)) !important;
+}
 
 #wanted_movie_container > .movie {
     position: relative;
     /* min-height: 250px;
-    max-height: 412px;
-    min-width: 270px; */
+    max-height: 412px;*/
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    max-height: 380px;
 }
 
 #wanted_movie_container > .movie:hover {
@@ -639,7 +661,7 @@ header .user-t > i{
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 100%;
+    height: 330px !important;
     color: #fff;
     font-family: 'Poppins', sans-serif;
     padding: 0 10px;

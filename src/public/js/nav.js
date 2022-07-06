@@ -1,5 +1,48 @@
-$( async () => {
+$(async () => {
     const socket = io();
+
+    // NAVIGATION  ------------------------------------------------------------------------------
+
+
+    const bars = document.getElementById('button-nav-res');
+    const asideLinks = document.getElementById('aside-links');
+
+
+    // bars es el boton responsive del menu
+    bars.addEventListener('click', (e) => {
+        // esta el menu res, con opacity cero
+        //se le agrega opacity 1 y pointer events all y se cambia el icono de hamburguer a la X
+        asideLinks.classList.toggle('opacity-pointer-events');
+        bars.classList.toggle('fa-bars-staggered');
+        bars.classList.toggle('fa-circle-xmark');
+
+        // si la hambueguer cambio a x pasa lo siguiente
+        // si se le da click a algo que no sea el nav responsive se ejecuta la funcion reset
+        // reset es para que el nav responsive se cierre
+        if (bars.classList.contains('fa-circle-xmark')) {
+            const other = document.querySelectorAll('.other');
+            for (let i = 0; i < other.length; i++) {
+                other[i].addEventListener('touchmove', reset);
+            }
+            wantedMovie.addEventListener('click', reset);
+        } else { // sino se remueve el evento de reset 
+            const other = document.querySelectorAll('.other');
+            for (let i = 0; i < other.length; i++) {
+                other[i].removeEventListener('touchmove', reset, true);
+            }
+            wantedMovie.removeEventListener('click', reset, true);
+        }
+    });
+
+    const reset = () => {
+        asideLinks.classList.remove('opacity-pointer-events');
+        bars.classList.add('fa-bars-staggered');
+        bars.classList.remove('fa-circle-xmark');
+    }
+
+    // NAVIGATION END --------------------------------------------------------------
+
+    // SERACH MOVIE  ---------------------------------------------------------------
 
     //YOUTUBE API
 
@@ -10,17 +53,17 @@ $( async () => {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     var player;
-    async function onYouTubeIframeAPIReady (id,playerId) {
-         player = await new YT.Player(playerId, {
+    async function onYouTubeIframeAPIReady(id, playerId) {
+        player = await new YT.Player(playerId, {
             height: '720',
             width: '1080',
             videoId: id,
-            playerVars:{
-                'controls':0
+            playerVars: {
+                'controls': 0
             },
             events: {
-            'onReady': onPlayerReady,
-            'onStateChange':onPlayerStateChange
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
             }
         });
     }
@@ -56,23 +99,19 @@ $( async () => {
     const $moviesWantedContainerJquery = $('.wanted_movie_containerJquery');
 
     const title = document.querySelectorAll('.add');
-    const containerMovies = document.querySelectorAll('.container');
-    const portada = document.querySelector('.port');
     const header = document.querySelector('.header');
-    const bars = document.getElementById('button-nav-res');
-    const asideLinks = document.getElementById('aside-links');
 
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
     let movieWantedTrailer = false;
-    
-    btn_close.addEventListener('click',(e)=>{
+
+    btn_close.addEventListener('click', (e) => {
         const trailerContainer = document.getElementById(`trailer`);
         header.classList.remove('back-black');
         header.classList.remove('overflow-hidden');
         header.style.height = '65px';
 
-        if(movieWantedTrailer){
+        if (movieWantedTrailer) {
             moviesWantedContainer.style.opacity = '1';
         }
 
@@ -80,26 +119,26 @@ $( async () => {
         stopVideo();
     })
 
-/*   Eventos emitidos:
-    - movie
-    - watch
-
-    Eventos escuchados:
-    - loadTrailer
-    - obtainedFilm
-    - trailer
-    - filmDoesntFound X3
-*/
+    /*   Eventos emitidos:
+        - movie
+        - watch
+    
+        Eventos escuchados:
+        - loadTrailer
+        - obtainedFilm
+        - trailer
+        - filmDoesntFound X3
+    */
 
     // Carga el trailer de la portada
     let urlTrailer;
-    socket.on('loadTrailer',url=>{
+    socket.on('loadTrailer', url => {
         urlTrailer = url;
         // onYouTubeIframeAPIReady(urlTrailer,'portada');
     })
 
     // Escucha el evento trailer Y muestra el trailer
-    socket.on('trailer',movie=>{
+    socket.on('trailer', movie => {
         const trailerContainer = document.getElementById(`trailer`);
         header.classList.add('back-black');
         header.classList.add('overflow-hidden');
@@ -110,62 +149,30 @@ $( async () => {
         let url;
 
         for (let i = 0; i < movie.length; i++) {
-            if(movie[i]['type'] == 'Trailer' && movie[i]['size'] == 1080 && movie[i]['site'] == 'YouTube' && movie[i]['official'] == true){
+            if (movie[i]['type'] == 'Trailer' && movie[i]['size'] == 1080 && movie[i]['site'] == 'YouTube' && movie[i]['official'] == true) {
                 url = movie[i]['key'];
             }
         }
-        
-        onYouTubeIframeAPIReady(url,'player');
-        
+
+        onYouTubeIframeAPIReady(url, 'player');
+
     })
 
     //Obtencion del id de la pelicula Y se transmite un evento llamado watch, se le envia el id
     for (let i = 0; i < buttons.length; i++) {
-       buttons[i].addEventListener('click',(e)=>{
-           id = buttons[i].id;
-           socket.emit('watch',id);
-       })
+        buttons[i].addEventListener('click', (e) => {
+            id = buttons[i].id;
+            socket.emit('watch', id);
+        })
     }
 
     $searchForm.submit((e) => {
         e.preventDefault();
     })
 
-    logo.addEventListener('click',()=>{
-        location.href = '/';
+    logo.addEventListener('click', () => {
+        location.href = '/home';
     })
-
-    // bars es el boton responsive del menu
-    bars.addEventListener('click', (e) => {
-        // esta el menu res, con opacity cero
-        //se le agrega opacity 1 y pointer events all y se cambia el icono de hamburguer a la X
-        asideLinks.classList.toggle('opacity-pointer-events');
-        bars.classList.toggle('fa-bars-staggered');
-        bars.classList.toggle('fa-circle-xmark');
-        
-        // si la hambueguer cambio a x pasa lo siguiente
-        // si se le da click a algo que no sea el nav responsive se ejecuta la funcion reset
-        // reset es para que el nav responsive se cierre
-        if (bars.classList.contains('fa-circle-xmark')) {
-            const other = document.querySelectorAll('.other');
-            for (let i = 0; i < other.length; i++) {
-                other[i].addEventListener('touchmove', reset);
-            }
-            wantedMovie.addEventListener('click', reset);
-        }else{ // sino se remueve el evento de reset 
-            const other = document.querySelectorAll('.other');
-            for (let i = 0; i < other.length; i++) {
-                other[i].removeEventListener('touchmove', reset,true);
-            }
-            wantedMovie.removeEventListener('click', reset,true);
-        }
-    });
-
-    const reset = () => {
-        asideLinks.classList.remove('opacity-pointer-events');
-        bars.classList.add('fa-bars-staggered');
-        bars.classList.remove('fa-circle-xmark');
-    }
 
     let timeout;
 
@@ -176,7 +183,7 @@ $( async () => {
         timeout = setTimeout(() => {
             $searchForm.submit();// se le hace submit al search
             clearTimeout(timeout);
-        },1500)
+        }, 1500)
     })
 
     // Buscador
@@ -184,11 +191,11 @@ $( async () => {
         let movie = $wantedMovie.val();
         if (movie.length > 0) {
             moviesWantedContainer.style.display = 'grid';
-            portada.style.display = 'none';
+            //portada.style.display = 'none';
             header.classList.add('back-black');
             for (let i = 0; i < title.length; i++) {
                 title[i].style.display = 'none';
-                containerMovies[i].style.display = 'none';
+
             }
             $searchForm.submit((e) => { //Esto pasara cuando se le haga submit al input search
                 e.preventDefault();
@@ -198,11 +205,11 @@ $( async () => {
 
         } else if (movie.length === 0) {
             moviesWantedContainer.style.display = 'none';
-            portada.style.display = 'block';
+            //portada.style.display = 'block';
             header.classList.remove('back-black');
             for (let i = 0; i < title.length; i++) {
-                title[i].style.display = 'flex';
-                containerMovies[i].style.display = 'flex';
+                title[i].style.display = 'grid';
+
             }
         }
     })
@@ -241,14 +248,15 @@ $( async () => {
         };
 
         $moviesWantedContainerJquery.html(html);
+
         const buttonsMW = document.querySelectorAll('.button');
-            for (let i = 0; i < buttonsMW.length; i++) {
-                buttonsMW[i].addEventListener('click',(e)=>{
-                    id = buttonsMW[i].id;
-                    moviesWantedContainer.style.opacity = '0';
-                    movieWantedTrailer = true;
-                    socket.emit('watch',id);
-                })
-            }
+        for (let i = 0; i < buttonsMW.length; i++) {
+            buttonsMW[i].addEventListener('click', (e) => {
+                id = buttonsMW[i].id;
+                moviesWantedContainer.style.opacity = '0';
+                movieWantedTrailer = true;
+                socket.emit('watch', id);
+            })
+        }
     })
-})
+});

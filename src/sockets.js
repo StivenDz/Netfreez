@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
+const router = Router();
 /*
     Eventos escuchados:
     - movie
@@ -16,7 +17,7 @@ module.exports = (io) => {
 
     io.on('connection', async socket => {
         console.log('Connected');
-        
+
         let cartelera;
 
         // trailer de la portada
@@ -27,29 +28,29 @@ module.exports = (io) => {
 
                 // con ese id busco el trailer y emito un evento
                 await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=e40f81b55b1ff2e898eaf34b92f0b2ad&language=en-US`)
-                .then(async (response) => {
-                    let url;
-                    let trailer = await response.data['results'];
-                    if (trailer.length > 0) {
-                        for (let i = 0; i < trailer.length; i++) {
-                            if(trailer[i]['type'] == 'Trailer' && trailer[i]['size'] == 1080 && trailer[i]['site'] == 'YouTube' && trailer[i]['official'] == true){
-                                url = trailer[i]['key'];
+                    .then(async (response) => {
+                        let url;
+                        let trailer = await response.data['results'];
+                        if (trailer.length > 0) {
+                            for (let i = 0; i < trailer.length; i++) {
+                                if (trailer[i]['type'] == 'Trailer' && trailer[i]['size'] == 1080 && trailer[i]['site'] == 'YouTube' && trailer[i]['official'] == true) {
+                                    url = trailer[i]['key'];
+                                }
                             }
+                            socket.emit('loadTrailer', url);
+                        } else {
+                            socket.emit('filmDoesntFound', 'Not Found');
+                            console.log('Not Found');
                         }
-                        socket.emit('loadTrailer',url);
-                    } else {
-                        socket.emit('filmDoesntFound', 'Not Found');
-                        console.log('Not Found');
-                    }
-                })
-                .catch((error) => {
-                    console.log('error');
-                });
+                    })
+                    .catch((error) => {
+                        console.log('error');
+                    });
             })
             .catch((error) => {
                 console.log('error');
             });
-        
+
         //Buscador/Filter de pelicula por nombre
         socket.on('movie', async (data) => {
             let movies;
@@ -111,21 +112,64 @@ module.exports = (io) => {
 
         let users = [
             {
-                email:'stivendiazh@gmail.com',
-                password:'123456789'
+                email: 'stivendiazh@gmail.com',
+                password: '123456789'
             }
         ];
-
         //login
-        socket.on('auth',(data,cb)=>{
+        socket.on('auth', (data, cb) => {
             for (let i = 0; i < users.length; i++) {
-                if(users[i]['email'] === data.email && users[i]['password'] === data.password){
+                if (users[i]['email'] === data.email && users[i]['password'] === data.password) {
                     cb(true);
-                }else{
+                } else {
                     cb(false);
                 }
             }
         })
+
+        let myList = [];
+        let ids = [];
+        socket.on('loadMyList', async (data) => {
+            ids = data;
+            for (const id of ids) {
+                await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=e40f81b55b1ff2e898eaf34b92f0b2ad&language=en-US`)
+                    .then(async (response) => {
+                        let favoriteMovie = await response.data;
+                        myList.push(favoriteMovie);
+                    })
+                    .catch((error) => {
+                        console.log('error');
+                    });
+            }
+            socket.emit('myList', (myList));
+        })
+
+        socket.on('addToMyList', async (id) => {
+            await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=e40f81b55b1ff2e898eaf34b92f0b2ad&language=en-US`)
+                .then(async (response) => {
+                    let favoriteMovie = await response.data;
+                    myList.push(favoriteMovie);
+                    console.log(favoriteMovie['original_title'], 'Added');
+                })
+                .catch((error) => {
+                    console.log('error');
+                });
+
+        })
+
+        socket.on('deleteMovieOfMyList', (id) => {
+            if (myList.length == 1) {
+                myList.shift();
+            } else {
+                for (let i = 0; i < myList.length; i++) {
+                    if (myList[i]['id'] == id) {
+                        console.log(myList[i]['original_title'], 'Deleted');
+                        myList.splice(i, 1);
+                    }
+                }
+            }
+        });
+
     })
 
 }
