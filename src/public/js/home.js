@@ -1,8 +1,7 @@
-$( async () => {
+$(async () => {
     const socket = io();
 
     //YOUTUBE API
-
     var tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
@@ -10,26 +9,26 @@ $( async () => {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
     var player;
-    async function onYouTubeIframeAPIReady (id,playerId) {
-         player = await new YT.Player(playerId, {
+    async function onYouTubeIframeAPIReady(id, playerId) {
+        player = await new YT.Player(playerId, {
             height: '720',
             width: '1080',
             videoId: id,
-            playerVars:{
-                'controls':0
+            playerVars: {
+                'controls': 0
             },
             events: {
-            'onReady': onPlayerReady,
-            'onStateChange':onPlayerStateChange
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
             }
         });
-    }
+    };
 
     function onPlayerReady(event) {
         event.target.setPlaybackQuality('hd1080');
         event.target.setVolume(60);
         event.target.playVideo();
-    }
+    };
 
     var done = false;
     function onPlayerStateChange(event) {
@@ -38,11 +37,12 @@ $( async () => {
         //     done = true;
         //     }
         event.target.setLoop(true);
-    }
+    };
 
     const stopVideo = () => {
         player.destroy();
-    }
+    };
+
     //END YOUTUBE API
     //-------------------------------------------------//
 
@@ -67,54 +67,54 @@ $( async () => {
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
     let movieWantedTrailer = false;
-    
+
     let myList = [];
 
-    if(localStorage.getItem('myList')){
+    if (localStorage.getItem('myList')) {
         let myListFromLS = JSON.parse(localStorage.getItem('myList'));
-        myListFromLS = myListFromLS.map(i => Number(i.replace('mov','')))
+        myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')))
 
         myList = JSON.parse(localStorage.getItem('myList'));
 
-        
+
         for (let i = 0; i < myList.length; i++) {
-            document.getElementById(myList[i]).classList.replace('fa-regular','fa-solid');
+            document.getElementById(myList[i]).classList.replace('fa-regular', 'fa-solid');
         }
         console.log(myList);
 
-        setTimeout(()=>{
+        setTimeout(() => {
             socket.emit('loadMyList', (myListFromLS));
-        },1000);
+        }, 1000);
     }
 
 
     //add to my list
     const addToFavoriteButton = document.querySelectorAll('.favorite');
     for (let i = 0; i < addToFavoriteButton.length; i++) {
-        addToFavoriteButton[i].setAttribute('title','Add To My List');
-        
-        addToFavoriteButton[i].addEventListener('click', ()=>{
+        addToFavoriteButton[i].setAttribute('title', 'Add To My List');
+
+        addToFavoriteButton[i].addEventListener('click', () => {
             let idMovie = addToFavoriteButton[i].id;
-            if(addToFavoriteButton[i].classList.contains('fa-solid')){
+            if (addToFavoriteButton[i].classList.contains('fa-solid')) {
                 console.log('está guardada esta peli, voy a eliminarla de mi lista');
-                addToFavoriteButton[i].setAttribute('title','Add To My List');
-                if(myList.length > 1){
+                addToFavoriteButton[i].setAttribute('title', 'Add To My List');
+                if (myList.length > 1) {
                     let indiceMovie = myList.indexOf(idMovie);
-                    myList.splice(indiceMovie,1);
+                    myList.splice(indiceMovie, 1);
                     console.log(myList);
-                }else{
+                } else {
                     myList.shift();
                     console.log(myList);
                 }
-                socket.emit('deleteMovieOfMyList',(idMovie.replace('mov','')));
-            }else{
-                addToFavoriteButton[i].setAttribute('title','Remove To My List');
+                socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
+            } else {
+                addToFavoriteButton[i].setAttribute('title', 'Remove To My List');
                 console.log('new movie added');
                 myList.push(idMovie);
-                socket.emit('addToMyList',(idMovie.replace('mov','')));
+                socket.emit('addToMyList', (idMovie.replace('mov', '')));
                 console.log(myList);
             }
-            localStorage.setItem('myList',JSON.stringify(myList));
+            localStorage.setItem('myList', JSON.stringify(myList));
             addToFavoriteButton[i].classList.toggle('fa-regular');
             addToFavoriteButton[i].classList.toggle('fa-solid');
         });
@@ -122,13 +122,13 @@ $( async () => {
     };
 
     // cerrar modal del trailer
-    btn_close.addEventListener('click',(e)=>{
+    btn_close.addEventListener('click', (e) => {
         const trailerContainer = document.getElementById(`trailer`);
         header.classList.remove('back-black');
         header.classList.remove('overflow-hidden');
         header.style.height = '65px';
 
-        if(movieWantedTrailer){
+        if (movieWantedTrailer) {
             moviesWantedContainer.style.opacity = '1';
         }
 
@@ -136,26 +136,26 @@ $( async () => {
         stopVideo();
     })
 
-/*   Eventos emitidos:
-    - movie
-    - watch
-
-    Eventos escuchados:
-    - loadTrailer
-    - obtainedFilm
-    - trailer
-    - filmDoesntFound X3
-*/
+    /*   Eventos emitidos:
+        - movie
+        - watch
+    
+        Eventos escuchados:
+        - loadTrailer
+        - obtainedFilm
+        - trailer
+        - filmDoesntFound X3
+    */
 
     // Carga el trailer de la portada
     let urlTrailer;
-    socket.on('loadTrailer',url=>{
+    socket.on('loadTrailer', url => {
         urlTrailer = url;
         // onYouTubeIframeAPIReady(urlTrailer,'portada');
     })
 
     // Escucha el evento trailer Y muestra el trailer
-    socket.on('trailer',movie=>{
+    socket.on('trailer', movie => {
         const trailerContainer = document.getElementById(`trailer`);
         header.classList.add('back-black');
         header.classList.add('overflow-hidden');
@@ -166,28 +166,28 @@ $( async () => {
         let url;
 
         for (let i = 0; i < movie.length; i++) {
-            if(movie[i]['type'] == 'Trailer' && movie[i]['size'] == 1080 && movie[i]['site'] == 'YouTube' && movie[i]['official'] == true){
+            if (movie[i]['type'] == 'Trailer' && movie[i]['size'] == 1080 && movie[i]['site'] == 'YouTube' && movie[i]['official'] == true) {
                 url = movie[i]['key'];
             }
         }
-        
-        onYouTubeIframeAPIReady(url,'player');
-        
+
+        onYouTubeIframeAPIReady(url, 'player');
+
     })
 
     //Obtencion del id de la pelicula Y se transmite un evento llamado watch, se le envia el id
     for (let i = 0; i < buttons.length; i++) {
-       buttons[i].addEventListener('click',(e)=>{
-           id = buttons[i].id;
-           socket.emit('watch',id);
-       })
+        buttons[i].addEventListener('click', (e) => {
+            id = buttons[i].id;
+            socket.emit('watch', id);
+        })
     }
 
     $searchForm.submit((e) => {
         e.preventDefault();
     })
 
-    logo.addEventListener('click',()=>{
+    logo.addEventListener('click', () => {
         location.href = '/home';
     })
 
@@ -198,7 +198,7 @@ $( async () => {
         asideLinks.classList.toggle('opacity-pointer-events');
         bars.classList.toggle('fa-bars-staggered');
         bars.classList.toggle('fa-circle-xmark');
-        
+
         // si la hambueguer cambio a x pasa lo siguiente
         // si se le da click a algo que no sea el nav responsive se ejecuta la funcion reset
         // reset es para que el nav responsive se cierre
@@ -208,12 +208,12 @@ $( async () => {
                 other[i].addEventListener('touchmove', reset);
             }
             wantedMovie.addEventListener('click', reset);
-        }else{ // sino se remueve el evento de reset 
+        } else { // sino se remueve el evento de reset 
             const other = document.querySelectorAll('.other');
             for (let i = 0; i < other.length; i++) {
-                other[i].removeEventListener('touchmove', reset,true);
+                other[i].removeEventListener('touchmove', reset, true);
             }
-            wantedMovie.removeEventListener('click', reset,true);
+            wantedMovie.removeEventListener('click', reset, true);
         }
     });
 
@@ -231,7 +231,7 @@ $( async () => {
         timeout = setTimeout(() => {
             $searchForm.submit();// se le hace submit al search
             clearTimeout(timeout);
-        },1500)
+        }, 1500)
     })
 
     // Buscador
@@ -297,13 +297,13 @@ $( async () => {
 
         $moviesWantedContainerJquery.html(html);
         const buttonsMW = document.querySelectorAll('.button');
-            for (let i = 0; i < buttonsMW.length; i++) {
-                buttonsMW[i].addEventListener('click',(e)=>{
-                    id = buttonsMW[i].id;
-                    moviesWantedContainer.style.opacity = '0';
-                    movieWantedTrailer = true;
-                    socket.emit('watch',id);
-                })
-            }
+        for (let i = 0; i < buttonsMW.length; i++) {
+            buttonsMW[i].addEventListener('click', (e) => {
+                id = buttonsMW[i].id;
+                moviesWantedContainer.style.opacity = '0';
+                movieWantedTrailer = true;
+                socket.emit('watch', id);
+            })
+        }
     })
 })

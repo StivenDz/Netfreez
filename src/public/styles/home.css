@@ -509,8 +509,8 @@ header .user-t > i{
     color: white;
     cursor: pointer;
     font-size: 20px;
-    /* pointer-events: all;
-    z-index: 1200; */
+    pointer-events: all;
+    z-index: 2000;
 }
 
 .container-movies div .overlay .move-name {
@@ -652,6 +652,17 @@ header .user-t > i{
     opacity: 0;
     z-index: 30;
 }
+.favorite{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 2000;
+}
+
+
 
 #wanted_movie_container div:hover .overlay {
     opacity: 1;

@@ -17,6 +17,12 @@ $(async () => {
                 html += `<div class="movie rounded-15px">
                             <img src="https://image.tmdb.org/t/p/w500${myList[i]['poster_path']}" class="card-img-top rounded-15px">
                             <div class="overlay rounded-15px">
+                                <i 
+                                    class="fa-solid fa-bookmark favorite"
+                                    id="mov${myList[i]['id']}">
+
+                                </i>
+
                                 <div class="content rounded-15px">
     
                                     <p class="move-name">${myList[i]['original_title']}</p>
@@ -54,5 +60,7 @@ $(async () => {
         setTimeout(() => {
             socket.emit('loadMyList', (myListFromLS));
         }, 1000);
-    };
+    }else{
+        
+    }
 });
