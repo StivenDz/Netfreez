@@ -3,19 +3,30 @@
 <head>
     <%- include("partials/head") -%>
     <link rel="stylesheet" href="../../styles/home.css">
+    <link rel="stylesheet" href="../../styles/footer.css">
     <link rel="stylesheet" href="../../styles/responsive.css">
 
     <title>My List | NetFreez | The Best Platform To Watch Movies And Series</title>
 </head>
-<body>
+<body class="ML">
 
     <%- include("partials/navigation") -%>
     <%- include("partials/searchMovie") -%>
 
     <section id="wanted_movie_container" class="other add align-center myList grid-column-width">
-
+        <div class="loading">
+            <h2>Loading...</h2>
+            <div class="spinner">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
     </section>
-
+    
+    <%- include("partials/footer") -%>
     <%- include("partials/trailer") -%>
     <%- include("partials/script") -%>
     <script type="module" src="../js/my-list.js"></script>

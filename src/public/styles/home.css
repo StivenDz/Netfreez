@@ -46,6 +46,9 @@ body {
     padding: 7px;
 }
 
+/* header  */
+
+
 header {
     height: 65px;
     width: 100%;
@@ -55,7 +58,7 @@ header {
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 1200;
+    z-index: 1300;
     transition: background 1s, height 1s;
 }
 .overflow-hidden{
@@ -272,6 +275,7 @@ header .user-t > i{
     outline: none;
 }
 
+/* portada */
 
 .port{
     width: 100%;
@@ -369,6 +373,8 @@ header .user-t > i{
     z-index: 700;
     background: rgb(15, 15, 15);
 }
+
+/* container-movies & movies cards */
 
 .container-movies {
     display: flex;
@@ -605,21 +611,111 @@ header .user-t > i{
     transition: opacity 2s;
 }
 
+/* myList  */
+
 .align-center{
     align-items: flex-start;
-    padding: 50px 20px 150px!important;
+    padding: 50px 20px !important;
 }
 
-/* .rounded-15px{
+.rounded-15px{
     border-radius: 15px !important;
-} */
+}
 
 /* .grid-column-width{
     grid-template-columns: repeat(auto-fill, minmax(225px , 1fr)) !important;
 } */
+
 .grid-column-width > .movie{
     max-height: 340px !important;
 }
+.grid-column-width > .movie > .overlay > .content{
+    max-height: 90% !important;
+}
+
+.myList{
+    display: grid !important;
+    min-height: 100vh;
+    top: 0 !important;
+    position: relative !important;
+}
+
+.loading {
+    display: flex;
+    width: 500px;
+    height: 300px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0);
+    border-radius: 15px;
+    padding: 30px;
+}
+.loading h2{
+    color: #3d3d3d;
+    margin-bottom: 20px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
+.spinner .dot {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.spinner .dot::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner .dot {
+    animation: spin 2s infinite;
+}
+
+.spinner .dot:nth-child(2) {
+    animation-delay: 100ms;
+}
+
+.spinner .dot:nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.spinner .dot:nth-child(4) {
+    animation-delay: 300ms;
+}
+
+.spinner .dot:nth-child(5) {
+    animation-delay: 400ms;
+}
+
+.ML .footer-Earth{
+    background: #000000;
+}
+
+/* END myList  */
 
 #wanted_movie_container > .movie {
     position: relative;
@@ -716,6 +812,8 @@ header .user-t > i{
     margin-bottom: 15px;
 }
 
+/* trailer */
+
 #trailer{
     position: fixed;
     height: 100vh;
@@ -762,4 +860,11 @@ header .user-t > i{
 #trailer #close-modal i:hover{
     color: rgba(255, 255, 255, 0.767);
     transform: scale(1.1);
+}
+
+/* footer  */
+
+.footer-Earth {
+    border-radius: 0 !important;
+    border:none !important;
 }

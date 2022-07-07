@@ -69,7 +69,8 @@ $(async () => {
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
     const trailerContainer = document.getElementById(`trailer`);
-
+    const loading = document.querySelector('.loading');
+    
     let movieWantedTrailer = false;
 
     btn_close.addEventListener('click', (e) => {
@@ -143,6 +144,7 @@ $(async () => {
     `
             }
             myListContainer.innerHTML = html;
+            loading.style.display = 'none';
             myListContainer.style.display = 'grid';
 
             //Obtencion del id de la pelicula Y se transmite un evento llamado watch, se le envia el id
@@ -166,7 +168,8 @@ $(async () => {
 
         setTimeout(() => {
             socket.emit('loadMyList', (myListFromLS));
-        }, 1000);
+        }, 2000);
+
     } else {
         console.log('no hay LS')
     }
