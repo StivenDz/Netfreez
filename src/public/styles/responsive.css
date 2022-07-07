@@ -159,6 +159,9 @@
 
 /*  PORTADA */
 @media screen and (max-width:923px) {
+    .loading{
+        width: 100%;
+    }
     .port .content h2{
         font-size: 40px;
     }
