@@ -218,6 +218,9 @@
     .container-movies > .movie {
         min-width: 200px;
     }
+    .grid-column-width > .movie{
+        min-height: 410px !important;
+    }
     .container-movies div .overlay .content{
         top: 0;
         height: 100%;
