@@ -179,6 +179,7 @@ $(async () => {
         if (movieWantedTrailer) {
             moviesWantedContainer.style.opacity = '1';
         }
+        moviesWantedContainer.classList.remove('z-index');
 
         trailerContainer.classList.remove('modal--show');
         stopVideo();
@@ -343,6 +344,7 @@ $(async () => {
             }
         };
 
+        moviesWantedContainer.classList.add('z-index');
         $moviesWantedContainerJquery.html(html);
         const buttonsMW = document.querySelectorAll('.button');
         for (let i = 0; i < buttonsMW.length; i++) {

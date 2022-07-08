@@ -6,15 +6,6 @@
         url('../fonts/Pattaya-Regular.ttf');
         
 }
-@font-face {
-    font-family: 'Poppins';
-    src: 
-        url('../fonts/Poppins-Regular.ttf'),
-        url('../fonts/Poppins-ExtraLight.ttf'),
-        url('../fonts/Poppins-Light.ttf'),
-        url('../fonts/Poppins-Medium.ttf')
-        
-}
 
 
 * {
@@ -607,7 +598,6 @@ header .user-t > i{
     width: 100vw;
     position: fixed;
     top: 65px;
-    z-index: 1100;
     background: #000000 ;
     grid-template-columns: repeat(auto-fill, minmax(200px , 1fr));
     /* grid-template-rows: repeat(4, minmax(200px , 350px)); */
@@ -623,6 +613,10 @@ header .user-t > i{
     
     padding: 100px 20px;
     transition: opacity 2s , grid-column 1s;
+}
+
+.z-index{
+    z-index: 1100;
 }
 
 /* myList  */
