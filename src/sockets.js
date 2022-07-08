@@ -164,6 +164,7 @@ module.exports = (io) => {
                     if (myList[i]['id'] == id) {
                         console.log(myList[i]['original_title'], 'Deleted');
                         myList.splice(i, 1);
+                        socket.emit('myList', (myList));
                     }
                 }
             }

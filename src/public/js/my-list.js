@@ -70,7 +70,7 @@ $(async () => {
     const btn_close = document.getElementById('close-modal');
     const trailerContainer = document.getElementById(`trailer`);
     const loading = document.querySelector('.loading');
-    
+
     let movieWantedTrailer = false;
 
     btn_close.addEventListener('click', (e) => {
@@ -105,8 +105,10 @@ $(async () => {
         YT.onYouTubeIframeAPIReady(url, 'player');
 
     })
+    let moviesId = [];
 
     socket.on('myList', (list) => {
+        html = ``;
         myList = list;
 
         for (let i = 0; i < myList.length; i++) {
@@ -156,12 +158,44 @@ $(async () => {
                     socket.emit('watch', id);
                 })
             }
+            //delete to my list
+            const addToFavoriteButton = document.querySelectorAll('.favorite');
+            for (let i = 0; i < addToFavoriteButton.length; i++) {
+                addToFavoriteButton[i].setAttribute('title', 'Remove of My List');
+
+                addToFavoriteButton[i].addEventListener('click', () => {
+                    let idMovie = addToFavoriteButton[i].id;
+
+                    console.log('está guardada esta peli, voy a eliminarla de mi lista');
+
+                    if (moviesId.length > 1) {
+                        let indiceMovie = moviesId.indexOf(idMovie);
+                        moviesId.splice(indiceMovie, 1);
+                        console.log(moviesId);
+                    } else {
+                        moviesId.shift();
+                        console.log(moviesId);
+                    }
+                    
+                    localStorage.setItem('myList', JSON.stringify(moviesId));
+                    addToFavoriteButton[i].classList.add('fa-regular');
+                    addToFavoriteButton[i].classList.remove('fa-solid');
+
+                    setTimeout(()=>{
+                        socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
+                    },2000)
+                    console.log(moviesId);
+                });
+
+            };
         };
     });
 
 
-    if (localStorage.getItem('myList')) {
+    if (localStorage.getItem('myList') && (JSON.parse(localStorage.getItem('myList'))).length > 0) {
         let myListFromLS = JSON.parse(localStorage.getItem('myList'));
+        moviesId = myListFromLS;
+        console.log(moviesId);
         myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')));
 
         myList = JSON.parse(localStorage.getItem('myList'));
@@ -171,6 +205,7 @@ $(async () => {
         }, 2000);
 
     } else {
+        loading.style.display = 'none';
         console.log('no hay LS')
     }
 

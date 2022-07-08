@@ -658,6 +658,11 @@ header .user-t > i{
     border-radius: 15px;
     padding: 30px;
 }
+
+.wanted_movie_containerJquery{
+    z-index: 2000 !important;
+}
+
 .loading h2{
     color: #3d3d3d;
     margin-bottom: 20px;
