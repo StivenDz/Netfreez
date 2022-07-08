@@ -101,6 +101,8 @@ $(async () => {
 
         addToFavoriteButton[i].addEventListener('click', () => {
             let idMovie = addToFavoriteButton[i].id;
+            const mov = document.querySelectorAll(`#${idMovie}`);
+
             if (addToFavoriteButton[i].classList.contains('fa-solid')) {
                 console.log('está guardada esta peli, voy a eliminarla de mi lista');
                 addToFavoriteButton[i].setAttribute('title', 'Add To My List');
@@ -114,7 +116,13 @@ $(async () => {
                 }
                 socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
             } else {
-                addToFavoriteButton[i].setAttribute('title', 'Remove To My List');
+                if(mov.length > 1){
+                    for (let j = 0; j < mov.length; j++) {
+                        mov[j].setAttribute('title', 'Remove To My List');
+                    }
+                }else{
+                    addToFavoriteButton[i].setAttribute('title', 'Remove To My List');
+                }
                 console.log('new movie added');
                 myList.push(idMovie);
                 socket.emit('addToMyList', (idMovie.replace('mov', '')));
@@ -128,8 +136,16 @@ $(async () => {
                 mylistCount.innerHTML = ``;
                 mylistCount.style.backgroundColor = 'transparent';
             }
-            addToFavoriteButton[i].classList.toggle('fa-regular');
-            addToFavoriteButton[i].classList.toggle('fa-solid');
+
+            if(mov.length > 1){
+                for (let j = 0; j < mov.length; j++) {
+                    mov[j].classList.toggle('fa-regular');
+                    mov[j].classList.toggle('fa-solid');
+                }
+            }else{
+                addToFavoriteButton[i].classList.toggle('fa-regular');
+                addToFavoriteButton[i].classList.toggle('fa-solid');
+            }
         });
 
     };
