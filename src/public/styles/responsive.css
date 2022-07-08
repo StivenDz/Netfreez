@@ -282,7 +282,12 @@
         max-width: 300px;
         justify-self: center;
     }
-
+    .logo{
+        display: none;
+    }
+    .logo-res{
+        display: block;
+    }
 
     header .links-title div h1 {
         display: none;

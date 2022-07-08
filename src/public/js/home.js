@@ -1,47 +1,11 @@
+import {ApiYouTube} from './ApiYouTube.js';
+
 $(async () => {
     const socket = io();
 
     //YOUTUBE API
-    var tag = document.createElement('script');
-
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    async function onYouTubeIframeAPIReady(id, playerId) {
-        player = await new YT.Player(playerId, {
-            height: '720',
-            width: '1080',
-            videoId: id,
-            playerVars: {
-                'controls': 0
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    };
-
-    function onPlayerReady(event) {
-        event.target.setPlaybackQuality('hd1080');
-        event.target.setVolume(60);
-        event.target.playVideo();
-    };
-
-    var done = false;
-    function onPlayerStateChange(event) {
-        // if (event.data == YT.PlayerState.PLAYING && !done) {
-        //     setTimeout(stopVideo, 6000);
-        //     done = true;
-        //     }
-        event.target.setLoop(true);
-    };
-
-    const stopVideo = () => {
-        player.destroy();
-    };
+    
+    const YT = ApiYouTube();
 
     //END YOUTUBE API
     //-------------------------------------------------//
@@ -179,10 +143,22 @@ $(async () => {
         if (movieWantedTrailer) {
             moviesWantedContainer.style.opacity = '1';
         }
-        moviesWantedContainer.classList.remove('z-index');
 
+        trailerContainer.classList.remove('z-index');
         trailerContainer.classList.remove('modal--show');
-        stopVideo();
+        YT.stopVideo();
+    })
+
+    if(window.scrollY >= 65){
+        header.classList.add('black-gradient');
+    }
+    window.addEventListener('scroll',()=>{
+        if(window.scrollY >= 65){
+            header.classList.add('black-gradient');
+        }else{
+            header.classList.remove('black-gradient');
+
+        }
     })
 
     /*   Eventos emitidos:
@@ -210,6 +186,7 @@ $(async () => {
         header.classList.add('overflow-hidden');
         header.style.height = '0';
 
+        trailerContainer.classList.add('z-index');
         trailerContainer.classList.add('modal--show');
 
         let url;
@@ -220,14 +197,14 @@ $(async () => {
             }
         }
 
-        onYouTubeIframeAPIReady(url, 'player');
+        YT.onYouTubeIframeAPIReady(url, 'player');
 
     })
 
     //Obtencion del id de la pelicula Y se transmite un evento llamado watch, se le envia el id
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', (e) => {
-            id = buttons[i].id;
+            let id = buttons[i].id;
             socket.emit('watch', id);
         })
     }
@@ -349,7 +326,7 @@ $(async () => {
         const buttonsMW = document.querySelectorAll('.button');
         for (let i = 0; i < buttonsMW.length; i++) {
             buttonsMW[i].addEventListener('click', (e) => {
-                id = buttonsMW[i].id;
+                let id = buttonsMW[i].id;
                 moviesWantedContainer.style.opacity = '0';
                 movieWantedTrailer = true;
                 socket.emit('watch', id);

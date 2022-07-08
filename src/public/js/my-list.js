@@ -71,8 +71,6 @@ $(async () => {
     const trailerContainer = document.getElementById(`trailer`);
     const loading = document.querySelector('.loading');
 
-    let movieWantedTrailer = false;
-
     header.classList.add('back-black');
 
     btn_close.addEventListener('click', (e) => {
@@ -80,12 +78,11 @@ $(async () => {
         header.classList.remove('overflow-hidden');
         header.style.height = '65px';
 
-        if (movieWantedTrailer) {
-            moviesWantedContainer.style.opacity = '1';
-        }
-
         trailerContainer.classList.remove('modal--show');
         YT.stopVideo();
+        setTimeout(()=>{
+            trailerContainer.classList.remove('z-index');
+        },2000);
     })
 
     // Escucha el evento trailer Y muestra el trailer
@@ -94,6 +91,7 @@ $(async () => {
         header.classList.add('overflow-hidden');
         header.style.height = '0';
 
+        trailerContainer.classList.add('z-index');
         trailerContainer.classList.add('modal--show');
 
         let url;
@@ -309,8 +307,6 @@ $(async () => {
         for (let i = 0; i < buttonsMW.length; i++) {
             buttonsMW[i].addEventListener('click', (e) => {
                 let id = buttonsMW[i].id;
-                moviesWantedContainer.style.opacity = '0';
-                movieWantedTrailer = true;
                 socket.emit('watch', id);
             })
         }

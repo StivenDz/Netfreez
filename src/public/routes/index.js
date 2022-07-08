@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { render } = require('ejs');
 const router = Router();
 
 
