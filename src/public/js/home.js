@@ -70,39 +70,7 @@ $(async () => {
 
     let myList = [];
 
-    if (localStorage.getItem('myList')) {
-        let myListFromLS = JSON.parse(localStorage.getItem('myList'));
-        myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')))
-
-        myList = JSON.parse(localStorage.getItem('myList'));
-
-        if(myList.length >= 1){
-            mylistCount.innerHTML = `<p>${myList.length}</p>`;
-            mylistCount.style.backgroundColor = '#5353531f';
-        }else{
-            mylistCount.innerHTML = ``;
-        }
-
-        for (let i = 0; i < myList.length; i++) {
-            const lsmov = document.querySelectorAll(`#${myList[i]}`);
-            const lsmovi = document.getElementById(myList[i]);
-            if(lsmov.length > 1){
-                for (let j = 0; j < lsmov.length; j++) {
-                    lsmov[j].classList.replace('fa-regular', 'fa-solid');
-                }
-            }else{
-                lsmovi.classList.replace('fa-regular', 'fa-solid');
-            }
-        }
-        console.log(myList);
-
-        setTimeout(() => {
-            socket.emit('loadMyList', (myListFromLS));
-        }, 1000);
-    }
-
-
-    //add to my list   FALTA QUE CAMBIEN LOS ATRIBUTO TITLE MOV IGUALES
+    //add to my list  | FALTA QUE CAMBIEN LOS ATRIBUTO TITLE MOV IGUALES |
     const addToFavoriteButton = document.querySelectorAll('.favorite');
     for (let i = 0; i < addToFavoriteButton.length; i++) {
         addToFavoriteButton[i].setAttribute('title', 'Add To My List');
@@ -123,12 +91,19 @@ $(async () => {
                     console.log(myList);
                 }
                 socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
+                if (mov.length > 1) {
+                    for (let j = 0; j < mov.length; j++) {
+                        mov[j].setAttribute('title', 'Add To My List');
+                    }
+                } else {
+                    addToFavoriteButton[i].setAttribute('title', 'Add To My List');
+                }
             } else {
-                if(mov.length > 1){
+                if (mov.length > 1) {
                     for (let j = 0; j < mov.length; j++) {
                         mov[j].setAttribute('title', 'Remove To My List');
                     }
-                }else{
+                } else {
                     addToFavoriteButton[i].setAttribute('title', 'Remove To My List');
                 }
                 console.log('new movie added');
@@ -137,26 +112,62 @@ $(async () => {
                 console.log(myList);
             }
             localStorage.setItem('myList', JSON.stringify(myList));
-            if(myList.length >= 1){
+            if (myList.length >= 1) {
                 mylistCount.innerHTML = `<p>${myList.length}</p>`;
                 mylistCount.style.backgroundColor = '#5353531f'
-            }else{
+            } else {
                 mylistCount.innerHTML = ``;
                 mylistCount.style.backgroundColor = 'transparent';
             }
 
-            if(mov.length > 1){
+            if (mov.length > 1) {
                 for (let j = 0; j < mov.length; j++) {
                     mov[j].classList.toggle('fa-regular');
                     mov[j].classList.toggle('fa-solid');
                 }
-            }else{
+            } else {
                 addToFavoriteButton[i].classList.toggle('fa-regular');
                 addToFavoriteButton[i].classList.toggle('fa-solid');
             }
         });
 
     };
+
+
+    // load mym list from localStorage
+    if (localStorage.getItem('myList')) {
+        let myListFromLS = JSON.parse(localStorage.getItem('myList'));
+        myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')))
+
+        myList = JSON.parse(localStorage.getItem('myList'));
+
+        if (myList.length >= 1) {
+            mylistCount.innerHTML = `<p>${myList.length}</p>`;
+            mylistCount.style.backgroundColor = '#5353531f';
+        } else {
+            mylistCount.innerHTML = ``;
+        }
+
+        for (let i = 0; i < myList.length; i++) {
+            const lsmov = document.querySelectorAll(`#${myList[i]}`);
+            const lsmovi = document.getElementById(myList[i]);
+            if (lsmov.length > 1) {
+                for (let j = 0; j < lsmov.length; j++) {
+                    lsmov[j].classList.replace('fa-regular', 'fa-solid');
+                    lsmov[j].setAttribute('title', 'Remove To My List');
+
+                }
+            } else {
+                lsmovi.setAttribute('title', 'Remove To My List');
+                lsmovi.classList.replace('fa-regular', 'fa-solid');
+            }
+        }
+        console.log(myList);
+
+        setTimeout(() => {
+            socket.emit('loadMyList', (myListFromLS));
+        }, 1000);
+    }
 
     // cerrar modal del trailer
     btn_close.addEventListener('click', (e) => {
