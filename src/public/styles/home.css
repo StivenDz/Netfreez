@@ -61,7 +61,7 @@ header {
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 1300;
+    z-index: 9999;
     transition: background 1s, height 1s;
 }
 .overflow-hidden{
@@ -135,7 +135,7 @@ header .user-t .pro-set-clos{
     flex-direction: column;
     width: 190px;
     top: 80px;
-    z-index: 1100;
+    z-index: 9999;
     right: 20px;
     background: rgba(0, 0, 0, 0.884);
     display: none;

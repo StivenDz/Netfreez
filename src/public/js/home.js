@@ -30,7 +30,7 @@ $(async () => {
     const mylistCount = document.querySelector('.movies-count');
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
-    let movieWantedTrailer = false;
+    const footer = document.querySelector('.footer-Earth');
 
     let myList = [];
 
@@ -140,13 +140,11 @@ $(async () => {
         header.classList.remove('overflow-hidden');
         header.style.height = '65px';
 
-        if (movieWantedTrailer) {
-            moviesWantedContainer.style.opacity = '1';
-        }
-
-        trailerContainer.classList.remove('z-index');
         trailerContainer.classList.remove('modal--show');
         YT.stopVideo();
+        setTimeout(()=>{
+            trailerContainer.classList.remove('z-index');
+        },2000);
     })
 
     if(window.scrollY >= 65){
@@ -270,6 +268,7 @@ $(async () => {
             for (let i = 0; i < title.length; i++) {
                 title[i].style.display = 'none';
                 containerMovies[i].style.display = 'none';
+                footer.style.display = 'none';
             }
             $searchForm.submit((e) => { //Esto pasara cuando se le haga submit al input search
                 e.preventDefault();
@@ -280,6 +279,7 @@ $(async () => {
         } else if (movie.length === 0) {
             moviesWantedContainer.style.display = 'none';
             portada.style.display = 'block';
+            footer.style.display = 'flex';
             header.classList.remove('back-black');
             for (let i = 0; i < title.length; i++) {
                 title[i].style.display = 'flex';
@@ -327,8 +327,6 @@ $(async () => {
         for (let i = 0; i < buttonsMW.length; i++) {
             buttonsMW[i].addEventListener('click', (e) => {
                 let id = buttonsMW[i].id;
-                moviesWantedContainer.style.opacity = '0';
-                movieWantedTrailer = true;
                 socket.emit('watch', id);
             })
         }

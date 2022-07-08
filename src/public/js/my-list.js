@@ -154,7 +154,6 @@ $(async () => {
             for (let i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener('click', (e) => {
                     let id = buttons[i].id;
-                    movieWantedTrailer = true;
                     socket.emit('watch', id);
                 })
             }
