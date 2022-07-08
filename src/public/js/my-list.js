@@ -73,6 +73,8 @@ $(async () => {
 
     let movieWantedTrailer = false;
 
+    header.classList.add('back-black');
+
     btn_close.addEventListener('click', (e) => {
         header.classList.remove('back-black');
         header.classList.remove('overflow-hidden');
@@ -114,7 +116,7 @@ $(async () => {
         for (let i = 0; i < myList.length; i++) {
             console.log(myList[i]['original_title']);
             if (myList[i]['poster_path']) {
-                html += `<div class="movie rounded-15px">
+                html += `<div class="movie rounded-15px m${myList[i]['id']}">
                             <img src="https://image.tmdb.org/t/p/w500${myList[i]['poster_path']}" class="card-img-top rounded-15px">
                             <div class="overlay rounded-15px">
                                 <i 
@@ -180,6 +182,7 @@ $(async () => {
                     localStorage.setItem('myList', JSON.stringify(moviesId));
                     addToFavoriteButton[i].classList.add('fa-regular');
                     addToFavoriteButton[i].classList.remove('fa-solid');
+                    document.querySelector(`.m${idMovie.replace('mov', '')}`).classList.add('opacity-hidden');
 
                     setTimeout(()=>{
                         socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
@@ -205,7 +208,17 @@ $(async () => {
         }, 2000);
 
     } else {
-        loading.style.display = 'none';
+        setTimeout(()=>{
+            loading.style.display = 'none';
+            myListContainer.innerHTML = `
+                <div class="no-movies-yet">
+                    <h2>
+                        You have nothing added to favorites
+                    </h2>
+                    <hr>
+                </div>
+            `;
+        },1500)
         console.log('no hay LS')
     }
 

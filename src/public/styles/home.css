@@ -97,15 +97,15 @@ header .links-title a {
     text-decoration: none;
     margin-left: 15px;
     font-size: 14px;
+    position: relative;
 }
 
 header .links-title a:hover,
 header .links-title .selected {
-    text-decoration: underline;
-    text-underline-position: under;
+    color: rgb(167, 167, 167);
 }
 header .links-title .selected{
-    color: rgb(189, 189, 189);
+    color: rgb(167, 167, 167);
 }
 
 header .user-t{
@@ -512,7 +512,7 @@ header .user-t > i{
     position: absolute;
     top: 15px;
     right: 15px;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     font-size: 20px;
     pointer-events: all;
@@ -608,14 +608,14 @@ header .user-t > i{
     overflow-y: scroll;
     
     padding: 100px 20px;
-    transition: opacity 2s;
+    transition: opacity 2s , grid-column 1s;
 }
 
 /* myList  */
 
 .align-center{
     align-items: flex-start;
-    padding: 50px 20px !important;
+    padding: 10px 20px 50px !important;
 }
 
 .rounded-15px{
@@ -628,16 +628,84 @@ header .user-t > i{
 
 .grid-column-width > .movie{
     max-height: 340px !important;
+    transition: opacity 2s;
+}
+
+.opacity-hidden{
+    opacity: 0;
 }
 .grid-column-width > .movie > .overlay > .content{
     max-height: 90% !important;
 }
 
+.no-movies-yet{
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-20%);
+    text-align: center;
+}
+
+.movies-count{
+    position: absolute;
+    z-index: -1;
+    color: #22ffc0;
+    top: -15px;
+    right: -20px;
+    border-radius: 50%;
+    width: 32px;
+    height: 31px;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.no-movies-yet h2{  
+    color: #fff;
+    font-weight: 350;
+    margin-bottom: 10px;
+}
+.no-movies-yet hr{
+    color: #fff;
+    width: 50%;
+    display: block;
+    margin: auto;
+    position: relative;
+    animation: reduce 3s ease-in-out 1 both;
+}
+@keyframes reduce {
+    0%{
+        width: 60%;
+    }95%{
+        width: 0%;
+    }100%{
+        width: 0%;
+        opacity: 0;
+    }
+}
+
 .myList{
     display: grid !important;
     min-height: 100vh;
+    height: 100% !important;
     top: 0 !important;
     position: relative !important;
+}
+
+.title{
+    height: 100px;
+    background: #000;
+    padding-left: 20px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.title h2{
+    color: white;
+    font-size: 25px;
+    font-weight: 400;
 }
 
 .loading {
@@ -761,7 +829,7 @@ header .user-t > i{
     position: absolute;
     top: 15px;
     right: 15px;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
     font-size: 20px;
     z-index: 2000;

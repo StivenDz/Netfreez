@@ -63,7 +63,7 @@ $(async () => {
     const header = document.querySelector('.header');
     const bars = document.getElementById('button-nav-res');
     const asideLinks = document.getElementById('aside-links');
-
+    const mylistCount = document.querySelector('.movies-count');
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
     let movieWantedTrailer = false;
@@ -76,6 +76,12 @@ $(async () => {
 
         myList = JSON.parse(localStorage.getItem('myList'));
 
+        if(myList.length >= 1){
+            mylistCount.innerHTML = `<p>${myList.length}</p>`;
+            mylistCount.style.backgroundColor = '#5353531f';
+        }else{
+            mylistCount.innerHTML = ``;
+        }
 
         for (let i = 0; i < myList.length; i++) {
             document.getElementById(myList[i]).classList.replace('fa-regular', 'fa-solid');
@@ -115,6 +121,13 @@ $(async () => {
                 console.log(myList);
             }
             localStorage.setItem('myList', JSON.stringify(myList));
+            if(myList.length >= 1){
+                mylistCount.innerHTML = `<p>${myList.length}</p>`;
+                mylistCount.style.backgroundColor = '#5353531f'
+            }else{
+                mylistCount.innerHTML = ``;
+                mylistCount.style.backgroundColor = 'transparent';
+            }
             addToFavoriteButton[i].classList.toggle('fa-regular');
             addToFavoriteButton[i].classList.toggle('fa-solid');
         });
