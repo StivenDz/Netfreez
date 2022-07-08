@@ -82,10 +82,16 @@ header .links-title div h1 {
     margin-left: -7px;
 }
 
-header .links-title div img {
+/* header .links-title div img {
     width: 55px;
     height: 60px;
     object-fit: contain;
+} */
+header .links-title div .logo {
+    width:160px;
+    height: 50px;
+    object-fit: contain;
+    padding-left: 15px;
 }
 
 header .button{
