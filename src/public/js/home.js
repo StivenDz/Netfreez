@@ -84,7 +84,15 @@ $(async () => {
         }
 
         for (let i = 0; i < myList.length; i++) {
-            document.getElementById(myList[i]).classList.replace('fa-regular', 'fa-solid');
+            const lsmov = document.querySelectorAll(`#${myList[i]}`);
+            const lsmovi = document.getElementById(myList[i]);
+            if(lsmov.length > 1){
+                for (let j = 0; j < lsmov.length; j++) {
+                    lsmov[j].classList.replace('fa-regular', 'fa-solid');
+                }
+            }else{
+                lsmovi.classList.replace('fa-regular', 'fa-solid');
+            }
         }
         console.log(myList);
 
@@ -94,7 +102,7 @@ $(async () => {
     }
 
 
-    //add to my list
+    //add to my list   FALTA QUE CAMBIEN LOS ATRIBUTO TITLE MOV IGUALES
     const addToFavoriteButton = document.querySelectorAll('.favorite');
     for (let i = 0; i < addToFavoriteButton.length; i++) {
         addToFavoriteButton[i].setAttribute('title', 'Add To My List');
