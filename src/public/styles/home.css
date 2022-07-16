@@ -63,6 +63,7 @@ header {
     top: 0;
     z-index: 9999;
     transition: background 1s, height 1s;
+
 }
 .overflow-hidden{
     overflow: hidden;

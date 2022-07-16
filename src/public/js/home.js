@@ -122,8 +122,11 @@ $(async () => {
 
                 }
             } else {
-                lsmovi.setAttribute('title', 'Remove To My List');
-                lsmovi.classList.replace('fa-regular', 'fa-solid');
+
+                lsmovi && (
+                    lsmovi.setAttribute('title', 'Remove To My List'),
+                    lsmovi.classList.replace('fa-regular', 'fa-solid')
+                );
             }
         }
         console.log(myList);

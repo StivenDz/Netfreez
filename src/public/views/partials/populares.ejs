@@ -15,7 +15,7 @@
                 <img src="<%=`https://image.tmdb.org/t/p/w500${popular_movies[i]['poster_path']}`%>" class="card-img-top">
                 <div class="overlay">
                     <i class="fa-regular fa-bookmark favorite"
-                        id="mov<%= popular_movies[i]['id']%>">
+                        id="mov<%= popular_movies[i]['id']%>" title="Add To My List">
                     </i>
                     <div class="content">
                         <p class="move-name"><%=popular_movies[i]['original_title']%></p>
