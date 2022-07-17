@@ -45,6 +45,21 @@ $(async () => {
 
             if (addToFavoriteButton[i].classList.contains('fa-solid')) {
                 console.log('está guardada esta peli, voy a eliminarla de mi lista');
+
+                Toastify({
+                    text: "Movie Deleted From My List",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                      background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
+                    }
+                    // onClick: function(){} // Callback after click
+                  }).showToast();
+
                 addToFavoriteButton[i].setAttribute('title', 'Add To My List');
                 if (myList.length > 1) {
                     let indiceMovie = myList.indexOf(idMovie);
@@ -63,6 +78,20 @@ $(async () => {
                     addToFavoriteButton[i].setAttribute('title', 'Add To My List');
                 }
             } else {
+                Toastify({
+                    text: "Movie Added To My List",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: false, // Prevents dismissing of toast on hover
+                    style: {
+                      background: "linear-gradient(to right, #22ffc0, rgb(0,200,0))",
+                    }
+                    // onClick: function(){} // Callback after click
+                  }).showToast();
+
                 if (mov.length > 1) {
                     for (let j = 0; j < mov.length; j++) {
                         mov[j].setAttribute('title', 'Remove To My List');
@@ -150,16 +179,13 @@ $(async () => {
         },2000);
     })
 
-    if(window.scrollY >= 65){
-        header.classList.add('black-gradient');
-    }
-    window.addEventListener('scroll',()=>{
-        if(window.scrollY >= 65){
-            header.classList.add('black-gradient');
-        }else{
-            header.classList.remove('black-gradient');
+    window.scrollY >= 65 && header.classList.add('black-gradient');
 
-        }
+    window.addEventListener('scroll',()=>{
+        window.scrollY >= 65 ?
+            header.classList.add('black-gradient')
+            :
+            header.classList.remove('black-gradient');
     })
 
     /*   Eventos emitidos:

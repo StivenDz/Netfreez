@@ -164,6 +164,19 @@ $(async () => {
 
                 addToFavoriteButton[i].addEventListener('click', () => {
                     let idMovie = addToFavoriteButton[i].id;
+                    Toastify({
+                        text: "Movie Deleted From My List",
+                        duration: 2000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: false, // Prevents dismissing of toast on hover
+                        style: {
+                          background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
+                        }
+                      }).showToast();
+
 
                     console.log('está guardada esta peli, voy a eliminarla de mi lista');
 
