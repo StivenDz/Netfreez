@@ -70,6 +70,7 @@ $(async () => {
     const btn_close = document.getElementById('close-modal');
     const trailerContainer = document.getElementById(`trailer`);
     const loading = document.querySelector('.loading');
+    const mylistCount = document.querySelector('.movies-count');
 
     header.classList.add('back-black');
 
@@ -110,7 +111,7 @@ $(async () => {
     socket.on('myList', (list) => {
         html = ``;
         myList = list;
-
+        
         for (let i = 0; i < myList.length; i++) {
             console.log(myList[i]['original_title']);
             if (myList[i]['poster_path']) {
@@ -157,7 +158,7 @@ $(async () => {
                     socket.emit('watch', id);
                 })
             }
-            //delete to my list
+            //delete of my list
             const addToFavoriteButton = document.querySelectorAll('.favorite');
             for (let i = 0; i < addToFavoriteButton.length; i++) {
                 addToFavoriteButton[i].setAttribute('title', 'Remove of My List');
@@ -190,6 +191,14 @@ $(async () => {
                     }
                     
                     localStorage.setItem('myList', JSON.stringify(moviesId));
+                    let myList = JSON.parse((localStorage.getItem('myList')));
+                    if (myList.length >= 1) {
+                        mylistCount.innerHTML = `<p>${myList.length}</p>`;
+                        mylistCount.style.backgroundColor = '#5353531f'
+                    } else {
+                        mylistCount.innerHTML = ``;
+                        mylistCount.style.backgroundColor = 'transparent';
+                    }
                     addToFavoriteButton[i].classList.add('fa-regular');
                     addToFavoriteButton[i].classList.remove('fa-solid');
                     document.querySelector(`.m${idMovie.replace('mov', '')}`).classList.add('opacity-hidden');
@@ -212,7 +221,13 @@ $(async () => {
         myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')));
 
         myList = JSON.parse(localStorage.getItem('myList'));
-
+        if (myList.length >= 1) {
+            mylistCount.innerHTML = `<p>${myList.length}</p>`;
+            mylistCount.style.backgroundColor = '#5353531f'
+        } else {
+            mylistCount.innerHTML = ``;
+            mylistCount.style.backgroundColor = 'transparent';
+        }
         setTimeout(() => {
             socket.emit('loadMyList', (myListFromLS));
         }, 2000);
