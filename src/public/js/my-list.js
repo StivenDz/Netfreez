@@ -1,4 +1,5 @@
 import { ApiYouTube } from "./ApiYouTube.js";
+import { addOrDeleteToMyList, updateFavoriteSelected } from './addOrDeleteToMyList.js'
 
 $(async () => {
     const socket = io();
@@ -81,37 +82,57 @@ $(async () => {
 
         trailerContainer.classList.remove('modal--show');
         YT.stopVideo();
-        setTimeout(()=>{
+        setTimeout(() => {
             trailerContainer.classList.remove('z-index');
-        },2000);
+        }, 2000);
     })
 
     // Escucha el evento trailer Y muestra el trailer
     socket.on('trailer', movie => {
-        header.classList.add('back-black');
-        header.classList.add('overflow-hidden');
-        header.style.height = '0';
-
-        trailerContainer.classList.add('z-index');
-        trailerContainer.classList.add('modal--show');
-
         let url;
-
+        let validUrl;
+        console.log(movie);
         for (let i = 0; i < movie.length; i++) {
             if (movie[i]['type'] == 'Trailer' && movie[i]['size'] == 1080 && movie[i]['site'] == 'YouTube' && movie[i]['official'] == true) {
                 url = movie[i]['key'];
+                validUrl = true;
+
+                header.classList.add('back-black');
+                header.classList.add('overflow-hidden');
+                header.style.height = '0';
+
+                trailerContainer.classList.add('z-index');
+                trailerContainer.classList.add('modal--show');
+                YT.onYouTubeIframeAPIReady(url, 'player');
+
+                break;
+            } else {
+                validUrl = false;
             }
         }
 
-        YT.onYouTubeIframeAPIReady(url, 'player');
+        !validUrl && (
+            Toastify({
+                text: `Sorry! Movie "${movie[0]['name']}" Not Available`,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "bottom",
+                position: "center",
+                className: 'toastyAlert',
+                stopOnFocus: false,
+                style: {
+                    background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
+                }
+            }).showToast()
+        )
+
 
     })
     let moviesId = [];
-
     socket.on('myList', (list) => {
         html = ``;
         myList = list;
-        
         for (let i = 0; i < myList.length; i++) {
             console.log(myList[i]['original_title']);
             if (myList[i]['poster_path']) {
@@ -119,8 +140,8 @@ $(async () => {
                             <img src="https://image.tmdb.org/t/p/w500${myList[i]['poster_path']}" class="card-img-top rounded-15px">
                             <div class="overlay rounded-15px">
                                 <i 
-                                    class="fa-solid fa-bookmark favorite"
-                                    id="mov${myList[i]['id']}">
+                                    class="fa-solid fa-bookmark favorite-myList"
+                                    id="mov${myList[i]['id']}" title="Remove of My List ">
 
                                 </i>
 
@@ -159,10 +180,8 @@ $(async () => {
                 })
             }
             //delete of my list
-            const addToFavoriteButton = document.querySelectorAll('.favorite');
+            const addToFavoriteButton = document.querySelectorAll('.favorite-myList');
             for (let i = 0; i < addToFavoriteButton.length; i++) {
-                addToFavoriteButton[i].setAttribute('title', 'Remove of My List');
-
                 addToFavoriteButton[i].addEventListener('click', () => {
                     let idMovie = addToFavoriteButton[i].id;
                     Toastify({
@@ -170,13 +189,14 @@ $(async () => {
                         duration: 2000,
                         newWindow: true,
                         close: true,
+                        className: 'toastyAlert',
                         gravity: "top", // `top` or `bottom`
                         position: "right", // `left`, `center` or `right`
                         stopOnFocus: false, // Prevents dismissing of toast on hover
                         style: {
-                          background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
+                            background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
                         }
-                      }).showToast();
+                    }).showToast();
 
 
                     console.log('está guardada esta peli, voy a eliminarla de mi lista');
@@ -189,7 +209,7 @@ $(async () => {
                         moviesId.shift();
                         console.log(moviesId);
                     }
-                    
+
                     localStorage.setItem('myList', JSON.stringify(moviesId));
                     let myList = JSON.parse((localStorage.getItem('myList')));
                     if (myList.length >= 1) {
@@ -201,15 +221,17 @@ $(async () => {
                     }
                     addToFavoriteButton[i].classList.add('fa-regular');
                     addToFavoriteButton[i].classList.remove('fa-solid');
-                    document.querySelector(`.m${idMovie.replace('mov', '')}`).classList.add('opacity-hidden');
+                    addToFavoriteButton[i].style.pointerEvents = 'none';
 
-                    setTimeout(()=>{
+                    document.querySelector(`.m${(idMovie.replace('mov', ''))}`).classList.add('opacity-hidden');
+
+                    setTimeout(() => {
                         socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
-                    },2000)
+                    }, 2000);
                     console.log(moviesId);
                 });
+            }
 
-            };
         };
     });
 
@@ -233,7 +255,7 @@ $(async () => {
         }, 2000);
 
     } else {
-        setTimeout(()=>{
+        setTimeout(() => {
             loading.style.display = 'none';
             myListContainer.innerHTML = `
                 <div class="no-movies-yet">
@@ -243,7 +265,7 @@ $(async () => {
                     <hr>
                 </div>
             `;
-        },1500)
+        }, 1500)
         console.log('no hay LS')
     }
 
@@ -304,7 +326,12 @@ $(async () => {
                 html += `<div class="movie">
                             <img src="https://image.tmdb.org/t/p/w500${data[i]['poster_path']}" class="card-img-top">
                             <div class="overlay">
+
                                 <div class="content">
+
+                                    <i class="fa-regular fa-bookmark favorite"
+                                    id="mov${data[i]['id']}" title="Add To My List">
+                                    </i>
     
                                     <p class="move-name">${data[i]['original_title']}</p>
                                     <p class="text">${data[i]['release_date']}</p>
@@ -329,6 +356,8 @@ $(async () => {
         };
 
         $moviesWantedContainerJquery.html(html);
+        updateFavoriteSelected(moviesId);
+        addOrDeleteToMyList(moviesId, socket, mylistCount);
 
         const buttonsMW = document.querySelectorAll('.button');
         for (let i = 0; i < buttonsMW.length; i++) {

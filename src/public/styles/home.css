@@ -643,6 +643,11 @@ header .user-t > i{
 .rounded-15px{
     border-radius: 15px !important;
 }
+.toastyAlert{
+    box-shadow: none;
+}
+
+
 
 /* .grid-column-width{
     grid-template-columns: repeat(auto-fill, minmax(225px , 1fr)) !important;
@@ -654,10 +659,20 @@ header .user-t > i{
 }
 
 .opacity-hidden{
-    opacity: 0;
+    opacity: 0 !important;
 }
 .grid-column-width > .movie > .overlay > .content{
     max-height: 90% !important;
+    justify-content: space-evenly !important
+    ;
+    padding-bottom: 0 !important;
+}
+.grid-column-width > .movie > .overlay > .content .cast{
+    max-height: 70px !important;
+    
+}
+.grid-column-width > .movie > .overlay > .content > :where(.move-name,.text,.cast,.rating){
+    position: static !important;
 }
 
 .no-movies-yet{
@@ -805,7 +820,9 @@ header .user-t > i{
 .spinner .dot:nth-child(5) {
     animation-delay: 400ms;
 }
-
+.ML{
+    background: #000;
+}
 .ML .footer-Earth{
     background: #000000;
 }
@@ -847,7 +864,7 @@ header .user-t > i{
     opacity: 0;
     z-index: 30;
 }
-.favorite{
+.favorite,.favorite-myList{
     position: absolute;
     top: 15px;
     right: 15px;
@@ -865,22 +882,26 @@ header .user-t > i{
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 330px !important;
+    height: 100% !important;
     color: #fff;
     font-family: 'Poppins', sans-serif;
-    padding: 0 10px;
+    padding: 0 10px 15px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-end;
 }
 
 #wanted_movie_container div .overlay .move-name {
     font-size: 18px;
+    position: absolute;
+    top: 95px;
 }
 
 #wanted_movie_container div .overlay .text {
     font-size: 12px;
     color: #f9c80e;
+    position: absolute;
+    top: 145px;
 }
 
 #wanted_movie_container div .overlay #duration {
@@ -894,6 +915,8 @@ header .user-t > i{
 #wanted_movie_container div .overlay .rating {
     font-size: 12px;
     color: #f9c80e;
+    position: absolute;
+    top: 165px;
 }
 
 #wanted_movie_container div .overlay .rating span {
@@ -902,9 +925,10 @@ header .user-t > i{
 
 #wanted_movie_container div .overlay .cast {
     font-size: 12px;
-    max-height: 100px;
+    max-height: 55px;
     overflow-y: scroll;
     margin-bottom: 15px;
+    scroll-behavior: auto;
 }
 
 /* trailer */

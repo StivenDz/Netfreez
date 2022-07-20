@@ -149,6 +149,7 @@ module.exports = (io) => {
                 .then(async (response) => {
                     let favoriteMovie = await response.data;
                     myList.push(favoriteMovie);
+                    socket.emit('myList', (myList));
                     console.log(favoriteMovie['original_title'], 'Added');
                 })
                 .catch((error) => {

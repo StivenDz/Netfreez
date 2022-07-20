@@ -1,18 +1,17 @@
-import {ApiYouTube} from './ApiYouTube.js';
+import { ApiYouTube } from './ApiYouTube.js';
+import { addOrDeleteToMyList, updateFavoriteSelected } from './addOrDeleteToMyList.js'
 
 $(async () => {
     const socket = io();
 
     //YOUTUBE API
-    
     const YT = ApiYouTube();
 
-    //END YOUTUBE API
-    //-------------------------------------------------//
-
+    // EL LINK HOME CAMBIA A SER SELECIONADO
     const links = document.querySelectorAll('.links-nav');
     links[0].classList.add('selected');
 
+    // OBTENIENDO ELEMENTOS DEL DOCUMENT
     const $searchForm = $('#search_movie');
     const wantedMovie = document.getElementById('wantedMovie');
     const $wantedMovie = $('#wantedMovie');
@@ -27,112 +26,21 @@ $(async () => {
     const header = document.querySelector('.header');
     const bars = document.getElementById('button-nav-res');
     const asideLinks = document.getElementById('aside-links');
-    const mylistCount = document.querySelector('.movies-count');
     const buttons = document.querySelectorAll('.button');
     const btn_close = document.getElementById('close-modal');
     const footer = document.querySelector('.footer-Earth');
 
+    //add or delete to my list
+    const mylistCount = document.querySelector('.movies-count');
     let myList = [];
 
-    //add to my list  | FALTA QUE CAMBIEN LOS ATRIBUTO TITLE MOV IGUALES |
-    const addToFavoriteButton = document.querySelectorAll('.favorite');
-    for (let i = 0; i < addToFavoriteButton.length; i++) {
-        addToFavoriteButton[i].setAttribute('title', 'Add To My List');
-
-        addToFavoriteButton[i].addEventListener('click', () => {
-            let idMovie = addToFavoriteButton[i].id;
-            const mov = document.querySelectorAll(`#${idMovie}`);
-
-            if (addToFavoriteButton[i].classList.contains('fa-solid')) {
-                console.log('está guardada esta peli, voy a eliminarla de mi lista');
-
-                Toastify({
-                    text: "Movie Deleted From My List",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: false, // Prevents dismissing of toast on hover
-                    style: {
-                      background: "linear-gradient(to right, rgb(230,0,0), rgb(200,0,0))",
-                    }
-                    // onClick: function(){} // Callback after click
-                  }).showToast();
-
-                addToFavoriteButton[i].setAttribute('title', 'Add To My List');
-                if (myList.length > 1) {
-                    let indiceMovie = myList.indexOf(idMovie);
-                    myList.splice(indiceMovie, 1);
-                    console.log(myList);
-                } else {
-                    myList.shift();
-                    console.log(myList);
-                }
-                socket.emit('deleteMovieOfMyList', (idMovie.replace('mov', '')));
-                if (mov.length > 1) {
-                    for (let j = 0; j < mov.length; j++) {
-                        mov[j].setAttribute('title', 'Add To My List');
-                    }
-                } else {
-                    addToFavoriteButton[i].setAttribute('title', 'Add To My List');
-                }
-            } else {
-                Toastify({
-                    text: "Movie Added To My List",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: false, // Prevents dismissing of toast on hover
-                    style: {
-                      background: "linear-gradient(to right, #22ffc0, rgb(0,200,0))",
-                    }
-                    // onClick: function(){} // Callback after click
-                  }).showToast();
-
-                if (mov.length > 1) {
-                    for (let j = 0; j < mov.length; j++) {
-                        mov[j].setAttribute('title', 'Remove To My List');
-                    }
-                } else {
-                    addToFavoriteButton[i].setAttribute('title', 'Remove To My List');
-                }
-                console.log('new movie added');
-                myList.push(idMovie);
-                socket.emit('addToMyList', (idMovie.replace('mov', '')));
-                console.log(myList);
-            }
-            localStorage.setItem('myList', JSON.stringify(myList));
-            if (myList.length >= 1) {
-                mylistCount.innerHTML = `<p>${myList.length}</p>`;
-                mylistCount.style.backgroundColor = '#5353531f'
-            } else {
-                mylistCount.innerHTML = ``;
-                mylistCount.style.backgroundColor = 'transparent';
-            }
-
-            if (mov.length > 1) {
-                for (let j = 0; j < mov.length; j++) {
-                    mov[j].classList.toggle('fa-regular');
-                    mov[j].classList.toggle('fa-solid');
-                }
-            } else {
-                addToFavoriteButton[i].classList.toggle('fa-regular');
-                addToFavoriteButton[i].classList.toggle('fa-solid');
-            }
-        });
-
-    };
-
-
-    // load mym list from localStorage
+    // load my list from localStorage
     if (localStorage.getItem('myList')) {
         let myListFromLS = JSON.parse(localStorage.getItem('myList'));
         myListFromLS = myListFromLS.map(i => Number(i.replace('mov', '')))
 
         myList = JSON.parse(localStorage.getItem('myList'));
+        addOrDeleteToMyList(myList, socket, mylistCount);
 
         if (myList.length >= 1) {
             mylistCount.innerHTML = `<p>${myList.length}</p>`;
@@ -141,23 +49,8 @@ $(async () => {
             mylistCount.innerHTML = ``;
         }
 
-        for (let i = 0; i < myList.length; i++) {
-            const lsmov = document.querySelectorAll(`#${myList[i]}`);
-            const lsmovi = document.getElementById(myList[i]);
-            if (lsmov.length > 1) {
-                for (let j = 0; j < lsmov.length; j++) {
-                    lsmov[j].classList.replace('fa-regular', 'fa-solid');
-                    lsmov[j].setAttribute('title', 'Remove To My List');
-
-                }
-            } else {
-
-                lsmovi && (
-                    lsmovi.setAttribute('title', 'Remove To My List'),
-                    lsmovi.classList.replace('fa-regular', 'fa-solid')
-                );
-            }
-        }
+        updateFavoriteSelected(myList);
+        
         console.log(myList);
 
         setTimeout(() => {
@@ -174,14 +67,14 @@ $(async () => {
 
         trailerContainer.classList.remove('modal--show');
         YT.stopVideo();
-        setTimeout(()=>{
+        setTimeout(() => {
             trailerContainer.classList.remove('z-index');
-        },2000);
+        }, 2000);
     })
 
     window.scrollY >= 65 && header.classList.add('black-gradient');
 
-    window.addEventListener('scroll',()=>{
+    window.addEventListener('scroll', () => {
         window.scrollY >= 65 ?
             header.classList.add('black-gradient')
             :
@@ -326,8 +219,12 @@ $(async () => {
                 html += `<div class="movie">
                             <img src="https://image.tmdb.org/t/p/w500${data[i]['poster_path']}" class="card-img-top">
                             <div class="overlay">
+
                                 <div class="content">
-    
+                                    <i class="fa-regular fa-bookmark favorite"
+                                    id="mov${data[i]['id']}" title="Add To My List">
+                                    </i>
+
                                     <p class="move-name">${data[i]['original_title']}</p>
                                     <p class="text">${data[i]['release_date']}</p>
                         
@@ -352,6 +249,9 @@ $(async () => {
 
         moviesWantedContainer.classList.add('z-index');
         $moviesWantedContainerJquery.html(html);
+        updateFavoriteSelected(myList);
+        addOrDeleteToMyList(myList, socket, mylistCount);
+
         const buttonsMW = document.querySelectorAll('.button');
         for (let i = 0; i < buttonsMW.length; i++) {
             buttonsMW[i].addEventListener('click', (e) => {

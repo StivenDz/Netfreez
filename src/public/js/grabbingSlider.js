@@ -5,10 +5,10 @@
 // });
 
 
-for (let i = 0; i < 3; i++) {
-    const slider = document.querySelectorAll('.container-movies');
-    const slide_left = document.querySelectorAll('.left-side');
-    const slide_right = document.querySelectorAll('.right-side');
+const slider = document.querySelectorAll('.container-movies');
+const slide_left = document.querySelectorAll('.left-side');
+const slide_right = document.querySelectorAll('.right-side');
+for (let i = 0; i < slider.length; i++) {
     
     let isDown = false;
     let startX;
@@ -45,7 +45,7 @@ for (let i = 0; i < 3; i++) {
         e.preventDefault();
         let x = e.pageX -  slider[i].offsetLeft;
         let walk = (x - startX);
-        console.log(walk);
+        // console.log(walk);
         slider[i].scrollLeft = scrollLeft - walk;
     })
 }
