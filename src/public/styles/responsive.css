@@ -190,6 +190,13 @@
 /*  PORTADA | Left Right Buttons | Container Movies | Movies Wanted  */
 
 @media screen and (max-width:680px) {
+    /* alert  */
+
+    .toastyAlert{
+        left: 50% !important;
+        transform: translate(-50%,50px) !important;
+    }
+
 
     /* PORTADA  */
     .port .content h2{
@@ -242,6 +249,16 @@
     }
 }
 
+@media screen and (max-width:680px) {
+    .toast-close{
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+
 @media screen and (max-width:679px) {
     /*  Movies Wanted  */
     #wanted_movie_container > .movie {
@@ -249,6 +266,20 @@
         max-width: 270px;
         justify-self: center;
     }
+}
+@media screen and (max-width:598px){
+    .toastyAlert{
+        font-size: 12px;
+        text-align: center;
+    }
+}
+@media screen and (max-width:530px){
+    .toastyAlert{
+        max-width: 90% !important;
+        width: 70%;
+        padding: 10px 20px;
+    }
+    
 }
 
 /* PORTADA */
@@ -337,6 +368,14 @@
     .port .content h2 {
         font-size: 22px;
     }
+}
+@media screen and (max-width:322px){
+    .toastyAlert{
+        width: 80%;
+        text-align: left;
+        transform: translate(-50%,65px) !important;
+    }
+    
 }
 @media screen and (max-width:317px) {
     .port .content .buttons-content button {

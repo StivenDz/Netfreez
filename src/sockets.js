@@ -155,7 +155,7 @@ module.exports = (io) => {
                 .catch((error) => {
                     console.log('error');
                 });
-        })
+        });
 
         socket.on('deleteMovieOfMyList', (id) => {
             if (myList.length == 1) {

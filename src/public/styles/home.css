@@ -248,7 +248,7 @@ header .user-t > i{
     width: 90px;
     float: left;
     font-size: 13px;
-    transition: 0.7s ease;
+    transition:width 0.7s ease, margin .7s ease;
 }
 
 .search-btn {
